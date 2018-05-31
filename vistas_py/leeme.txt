@@ -1,0 +1,2 @@
+En esta carpeta van los archivos .py que se generan a partir de los archivos .ui con el mismo nombre
+Para su generación se utiliza la herramienta pyuic5
