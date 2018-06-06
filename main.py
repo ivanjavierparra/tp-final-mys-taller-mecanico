@@ -12,12 +12,12 @@ def main(argumentos):
     elevador = Elevador()
 
     generarColaEntrada(colaEntrada)
-    
+
     while(10 >= reloj.get_valor() and reloj.get_valor =< 20)
         if (len(galpon.espacio) > 0 )
             if (mecanico.disponible)
                 reparacion(galpon.espacio.first(), mecanico, elevador)
                 colaEventos.append(evento)
-        if (!galpon.esta_lleno)
+        if (not galpon.esta_lleno)
             galpon.espacio.append(colaEntrada.first())
         //ejecutar Proximo Evento
