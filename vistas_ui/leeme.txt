@@ -1,1 +1,0 @@
-Aqui se guardan los archivos .ui resultantes de trabajar con el qt designer.

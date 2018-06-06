@@ -7,6 +7,9 @@ class Evento:
         self.tiempo = un_tiempo
         self.reparacion = una_reparacion
         self.vehiculo = un_vehiculo
+        
+    def __lt__(self, otro):
+        return self.tiempo < otro.tiempo
     
     def get_tipo(self):
         return self.tipo
