@@ -16,7 +16,6 @@ class Taller:
     """
     def __init__(self, cantidad_mecanicos=3, cantidad_elevadores=3, galpon=Galpon(10), reparaciones=[]):
         
-        
         self.mecanicos = []
         for i in range cantidad_mecanicos:
             self.mecanicos.append(Mecanico())
@@ -63,13 +62,4 @@ class Taller:
         #    una_reparacion.get_elevador().set_disponible(True) #Pasar elevador a disponible
         #una_raparacion.__del__()
         pass
-
-
-    def ejecutar_evento(self, un_evento): # tambien puede llamarse ocurre_evento. No me convence ninguno de los 2 como nombre. piensen otro
-        if (un_evento.get_tipo() == LLEGA_VEHICULO):
-            pass
-        elif(un_evento.get_tipo() == FINALIZA_REPARACION):
-            pass
-        else:
-            pass
 

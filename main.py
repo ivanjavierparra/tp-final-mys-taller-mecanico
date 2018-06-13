@@ -14,7 +14,7 @@ SALE_VEHICULO = 3   #cuando un vehiculo sale del taller
 
 def generar_cola_eventos_ordenada():
     """
-    En este metodo vamos a generar la cola de eventos diaria
+    En este metodo vamos a generar la cola de eventos DIARIA
     que manejará el main
     Se utilizará numpy y las definiciones de desvio, media, etc.
     """
