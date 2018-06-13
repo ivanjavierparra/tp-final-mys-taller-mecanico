@@ -1,7 +1,6 @@
 #Importamos las librerias necesarias
 import numpy as np
 import bisect #utilizada para trabajar con listas ordenadas
-
 import Vehiculo
 import Mecanico
 import Elevador
@@ -10,20 +9,13 @@ import Reparacion
 import Evento
 import Reloj
 
-""" EVENTOS """
-LLEGA_VEHICULO = 1  #cuando llega un vehiculo al taller
-FINALIZA_REPARACION = 2 #cuando finaliza la reparacion de un vehiculo
-SALE_VEHICULO = 3   #cuando un vehiculo sale del taller
-""" ------- """
-
 
 class Taller:
     """
     Clase que representa el taller
     """
-    def __init__(self, lista_eventos=[], cantidad_mecanicos=3, cantidad_elevadores=3, galpon=Galpon(10), reparaciones=[]):
-        self.eventos = lista_eventos
-        self.eventos.sort()
+    def __init__(self, cantidad_mecanicos=3, cantidad_elevadores=3, galpon=Galpon(10), reparaciones=[]):
+        
         
         self.mecanicos = []
         for i in range cantidad_mecanicos:
@@ -37,21 +29,6 @@ class Taller:
 
         self.reparaciones = reparaciones
 
-        self.reloj = Reloj()
-
-        
-    def get_evento_proximo(self):
-        if (len(self.eventos) > 0):
-            return seft.eventos[0]
-        else:
-            return None
-        
-    def agregar_evento(self, nuevo_evento):
-        bisect.insort(self.eventos, nuevo_evento)
-
-    def eliminar_evento(self, evento):
-        self.eventos.remove(evento)
-
     def get_elevador_libre(self):
         for un_elevador in self.elevadores:
             if(un_elevador.get_disponible()):
@@ -62,13 +39,7 @@ class Taller:
         for un_mecanico in self.mecanicos:
             if(un_mecanico.get_disponible()):
                 return un_mecanico
-        return = None
-
-    def agregar_evento(self, un_evento):
-        bisect.insort(self.eventos, un_evento)
-        
-    def remover_evento(self, un_evento):
-        self.eventos.remove(un_evento)
+        return None
 
     def ingresar_vehiculo(self, un_vehiculo):
         #
