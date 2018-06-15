@@ -31,9 +31,18 @@ def get_evento_proximo(cola_eventos):
 def agregar_evento(cola_eventos, nuevo_evento):
     bisect.insort(cola_eventos, nuevo_evento)
 
-def ejecutar_evento(un_evento): # tambien puede llamarse ocurre_evento. No me convence ninguno de los 2 como nombre. piensen otro
+def ejecutar_evento(un_evento,taller): # tambien puede llamarse ocurre_evento. No me convence ninguno de los 2 como nombre. piensen otro
         if (un_evento.get_tipo() == LLEGA_VEHICULO):
-            pass
+            if(!taller.get_galpon().esta_lleno()):
+                mecanico = taller.get_mecanico_libre()
+                if(mecanico):
+                    necesita_elevador = evento.get_vehiculo().usa_elevador()
+                    if(necesita_elevador):
+                        elevador = taller.get_elevador_libre()
+                        if(elevador):
+                            #genero reparacion, genero evento, 
+
+            
         elif(un_evento.get_tipo() == FINALIZA_REPARACION):
             pass
         else:
@@ -55,7 +64,7 @@ def main():
         reloj.set_valor(evento.get_tiempo())        
         #Procesamos el evento
         if (reloj.get_valor() < DIAS_DE_SIMULACION * MINUTOS_DE_SIMULACION_POR_DIA):
-            respuesta = ejecutar_evento(evento)
+            respuesta = ejecutar_evento(evento,taller)
             #Dada la respuesta definimos si hay que agregar
             #otro evento en la cola de eventos
             if respuesta:

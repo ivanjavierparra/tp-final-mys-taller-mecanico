@@ -63,3 +63,5 @@ class Taller:
         #una_raparacion.__del__()
         pass
 
+    def get_galpon(self):
+        return self.galpon
