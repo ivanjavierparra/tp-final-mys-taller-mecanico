@@ -23,10 +23,7 @@ class Galpon:
         else:
             return False
     
-    #Este metodo se llama cuando el vehiculo Entra a repararse
-    def mandar_auto_a_reparacion(self):
-        pass
-    
+
     #Este metodo se llama cuando el vehiculo sale del taller
     def salida_vehiculo(self,vehiculo):
         self.espacio.remove(vehiculo)
