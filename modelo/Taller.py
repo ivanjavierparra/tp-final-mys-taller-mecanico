@@ -45,14 +45,15 @@ class Taller:
         pass
 
     def egresar_vehiculo(self, un_vehiculo):
-        #
+        #sacar el vehiculo del galpon
         pass
 
-    def iniciar_reparacion(self, una_reparacion):
+    def iniciar_reparacion(self, un_vehiculo, un_mecanico, un_elevador=None):
         #self.reparaciones.append(una_reparacion)
         #una_reparacion.get_mecanico().set_disponible(False) #Pasar mecanico a ocupado
         #if (una_reparacion.get_elevador() != None):
         #    una_reparacion.get_elevador().set_disponible(False) #Pasar elevador a ocupado
+        return reparacion
         pass
 
     def finalizar_reparacion(self, una_reparacion):

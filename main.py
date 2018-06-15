@@ -31,22 +31,44 @@ def get_evento_proximo(cola_eventos):
 def agregar_evento(cola_eventos, nuevo_evento):
     bisect.insort(cola_eventos, nuevo_evento)
 
-def ejecutar_evento(un_evento,taller): # tambien puede llamarse ocurre_evento. No me convence ninguno de los 2 como nombre. piensen otro
+def ejecutar_evento(un_evento, taller, reloj, cola_eventos): # tambien puede llamarse ocurre_evento. No me convence ninguno de los 2 como nombre. piensen otro
         if (un_evento.get_tipo() == LLEGA_VEHICULO):
             if(!taller.get_galpon().esta_lleno()):
                 mecanico = taller.get_mecanico_libre()
                 if(mecanico):
-                    necesita_elevador = evento.get_vehiculo().usa_elevador()
+                    vehiculo = evento.get_vehiculo()
+                    necesita_elevador = vehiculo.usa_elevador()
+
                     if(necesita_elevador):
                         elevador = taller.get_elevador_libre()
                         if(elevador):
-                            #genero reparacion, genero evento, 
+                            vehiculo.set_tiempo_espera( (reloj.get_tiempo() - un_evento.get_tiempo()))
+                            reparacion = taller.iniciar_reparacion(evento.get_vehiculo(), mecanico, elevador)
+                            evento_nuevo = Evento(FINALIZA_REPARACION, (reloj.get_tiempo() + vehiculo.get_tiempo_reparacion()), reparacion, vehiculo) 
+                            agregar_evento(cola_eventos, evento_nuevo)
+                    else:
+                        reparacion = taller.iniciar_reparacion(evento.get_vehiculo(), mecanico)
+                        vehiculo.set_tiempo_espera( (reloj.get_tiempo() - un_evento.get_tiempo()))
+
+                        t_reparacion = vehiculo.get_tiempo_total() - vehiculo.get_tiempo_espera()
+                        vehiculo.set_tiempo_reparacion(t_reparacion)
+
+                        tiempo_ocurrencia = reloj.get_tiempo() + vehiculo.get_tiempo_reparacion()
+                        evento_nuevo = Evento(FINALIZA_REPARACION, tiempo_ocurrencia, reparacion, vehiculo) 
+
+                        agregar_evento(cola_eventos, evento_nuevo)
+
+                #rechazamos el vehiculo cuando no hay lugar en el galpon
+
 
             
         elif(un_evento.get_tipo() == FINALIZA_REPARACION):
             pass
-        else:
-            pass
+        else: # SALE_VEHICULO
+            taller.egresar_vehiculo(un_evento.get_vehiculo())
+
+        #ELIMINAR EVENTO DE LA LISTA
+            
 
 def main():
 
