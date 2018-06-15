@@ -61,7 +61,7 @@ def ejecutar_evento(un_evento, taller, reloj, cola_eventos): # tambien puede lla
                         agregar_evento(cola_eventos, evento_nuevo)
 
                 #rechazamos el vehiculo cuando no hay lugar en el galpon
-
+                #contador se vehiculos rechazados
 
             
         elif(un_evento.get_tipo() == FINALIZA_REPARACION):
