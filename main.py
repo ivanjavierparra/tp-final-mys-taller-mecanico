@@ -1,5 +1,5 @@
 import numpy as np
-from modelo import Taller
+from modelo import Taller, Evento, Reparacion
 
 
 DIAS_DE_SIMULACION = 30
@@ -31,11 +31,27 @@ def get_evento_proximo(cola_eventos):
 def agregar_evento(cola_eventos, nuevo_evento):
     bisect.insort(cola_eventos, nuevo_evento)
 
-def ejecutar_evento(un_evento): # tambien puede llamarse ocurre_evento. No me convence ninguno de los 2 como nombre. piensen otro
+def ejecutar_evento(un_evento, taller): # tambien puede llamarse ocurre_evento. No me convence ninguno de los 2 como nombre. piensen otro
         if (un_evento.get_tipo() == LLEGA_VEHICULO):
             pass
         elif(un_evento.get_tipo() == FINALIZA_REPARACION):
-            pass
+            reparacion = un_evento.get_reparacion()
+            galpon = taller.get_galpon()
+            if (reparacion.get_elevador()):
+                #Libero al mecanico y elevador
+                #Guardamos las reparaciones finalizadas?
+            else:
+                #Libero al mecanico y el auto se va del galpon
+                galpon.salida_vehiculo(reparacion.get_vehiculo)
+            #Creo nuevo evento de reparacion
+                reparacion = Reparacion()
+                vehiculo = galpon.get_vehiculo()
+                reparacion.vehiculo = vehiculo
+                reparacion.mecanico = taller.get_mecanico_libre()
+                if (vehiculo.usa_elevador()):
+                    reparacion.elevador = taller.get_elevador_libre()
+                tiempo = 800
+                evento = Evento(FINALIZA_REPARACION, tiempo, reparacion)
         else:
             pass
 
@@ -55,7 +71,7 @@ def main():
         reloj.set_valor(evento.get_tiempo())        
         #Procesamos el evento
         if (reloj.get_valor() < DIAS_DE_SIMULACION * MINUTOS_DE_SIMULACION_POR_DIA):
-            respuesta = ejecutar_evento(evento)
+            respuesta = ejecutar_evento(evento, taller)
             #Dada la respuesta definimos si hay que agregar
             #otro evento en la cola de eventos
             if respuesta:
