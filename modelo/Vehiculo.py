@@ -9,3 +9,6 @@ class Vehiculo:
         self.tiempo_reparacion = reparacion
         self.tiempo_total = tiempo_total
         self.reparado = False
+
+        def usa_elevador(self):
+            return self.usa_elevador
