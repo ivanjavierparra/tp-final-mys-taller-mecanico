@@ -1,5 +1,9 @@
 import numpy as np
+import bisect #utilizada para trabajar con listas ordenadas
 from modelo import Taller
+from modelo import Reloj
+from modelo import Evento
+from modelo import Vehiculo
 
 
 DIAS_DE_SIMULACION = 30
@@ -34,9 +38,11 @@ def agregar_evento(cola_eventos, nuevo_evento):
 def ejecutar_evento(un_evento, taller, reloj, cola_eventos): # tambien puede llamarse ocurre_evento. No me convence ninguno de los 2 como nombre. piensen otro
         if (un_evento.get_tipo() == LLEGA_VEHICULO):
             if(!taller.get_galpon().esta_lleno()):
+                vehiculo = evento.get_vehiculo()
+                taller.ingresar_vehiculo(vehiculo)
+                
                 mecanico = taller.get_mecanico_libre()
                 if(mecanico):
-                    vehiculo = evento.get_vehiculo()
                     necesita_elevador = vehiculo.usa_elevador()
 
                     if(necesita_elevador):

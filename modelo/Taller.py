@@ -1,13 +1,9 @@
 #Importamos las librerias necesarias
-import numpy as np
-import bisect #utilizada para trabajar con listas ordenadas
 import Vehiculo
 import Mecanico
 import Elevador
 import Galpon
 import Reparacion
-import Evento
-import Reloj
 
 
 class Taller:
@@ -41,28 +37,25 @@ class Taller:
         return None
 
     def ingresar_vehiculo(self, un_vehiculo):
-        #
-        pass
+        self.galpon.ingreso_vehiculo(un_vehiculo)
 
     def egresar_vehiculo(self, un_vehiculo):
-        #sacar el vehiculo del galpon
-        pass
+        self.galpon.salida_vehiculo(un_vehiculo)
 
     def iniciar_reparacion(self, un_vehiculo, un_mecanico, un_elevador=None):
-        #self.reparaciones.append(una_reparacion)
-        #una_reparacion.get_mecanico().set_disponible(False) #Pasar mecanico a ocupado
-        #if (una_reparacion.get_elevador() != None):
-        #    una_reparacion.get_elevador().set_disponible(False) #Pasar elevador a ocupado
+        una_reparacion = Reparacion(un_vehiculo, un_mecanico, un_elevador)
+        self.reparaciones.append(una_reparacion)
+        un_mecanico.set_disponible(False) #Pasar mecanico a ocupado
+        if (un_elevador != None):
+            un_elevador.set_disponible(False) #Pasar elevador a ocupado
         return reparacion
-        pass
 
     def finalizar_reparacion(self, una_reparacion):
-        #self.reparaciones.remove(una_reparacion)
-        #una_reparacion.get_mecanico().set_disponible(True) #Pasar mecanico a disponible
-        #if (una_reparacion.get_elevador() != None):
-        #    una_reparacion.get_elevador().set_disponible(True) #Pasar elevador a disponible
-        #una_raparacion.__del__()
-        pass
+        self.reparaciones.remove(una_reparacion)
+        una_reparacion.get_mecanico().set_disponible(True) #Pasar mecanico a disponible
+        if (una_reparacion.get_elevador() != None):
+            una_reparacion.get_elevador().set_disponible(True) #Pasar elevador a disponible
+        una_raparacion.__del__()
 
     def get_galpon(self):
         return self.galpon
