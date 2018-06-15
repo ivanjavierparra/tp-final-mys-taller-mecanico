@@ -48,17 +48,20 @@ def main():
     #Generar la cola de eventos.
     cola_eventos = generar_cola_eventos_ordenada()
 
-    while (reloj.get_valor() < DIAS_DE_SIMULACION * MINUTOS_DE_SIMULACION_POR_DIA):
+    while (True):
         #Obtenemos el evento correspondiente
         evento = get_evento_proximo(cola_eventos)
         #Adelantamos el reloj hasta el tiempo del proximo evento
         reloj.set_valor(evento.get_tiempo())        
         #Procesamos el evento
-        respuesta = ejecutar_evento(evento)
-        #Dada la respuesta definimos si hay que agregar
-        #otro evento en la cola de eventos
-        if respuesta:
-            agregar_evento(cola_eventos,respuesta)
+        if (reloj.get_valor() < DIAS_DE_SIMULACION * MINUTOS_DE_SIMULACION_POR_DIA):
+            respuesta = ejecutar_evento(evento)
+            #Dada la respuesta definimos si hay que agregar
+            #otro evento en la cola de eventos
+            if respuesta:
+                agregar_evento(cola_eventos,respuesta)
+        else:
+            break
         
 
 if __name__ == '__main__':
