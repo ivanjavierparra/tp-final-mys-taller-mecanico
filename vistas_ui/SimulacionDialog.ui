@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>675</width>
-    <height>475</height>
+    <width>851</width>
+    <height>485</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,8 +16,8 @@
   <widget class="QGroupBox" name="groupBox">
    <property name="geometry">
     <rect>
-     <x>350</x>
-     <y>20</y>
+     <x>520</x>
+     <y>30</y>
      <width>321</width>
      <height>221</height>
     </rect>
@@ -141,8 +141,8 @@
   <widget class="QGroupBox" name="groupBox_2">
    <property name="geometry">
     <rect>
-     <x>350</x>
-     <y>250</y>
+     <x>520</x>
+     <y>260</y>
      <width>321</width>
      <height>221</height>
     </rect>
@@ -160,13 +160,6 @@
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout_2">
-     <item row="3" column="0">
-      <widget class="QLabel" name="sin_elevador_label">
-       <property name="text">
-        <string>+ Sin Elevador</string>
-       </property>
-      </widget>
-     </item>
      <item row="1" column="1">
       <widget class="QLabel" name="cant_autos_reparados_val_label">
        <property name="text">
@@ -254,6 +247,13 @@
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="sin_elevador_label">
+       <property name="text">
+        <string>+ Sin Elevador</string>
        </property>
       </widget>
      </item>
@@ -385,6 +385,43 @@
     </item>
    </layout>
   </widget>
+  <widget class="QLCDNumber" name="lcdNumber">
+   <property name="geometry">
+    <rect>
+     <x>353</x>
+     <y>82</y>
+     <width>151</width>
+     <height>111</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>350</x>
+     <y>200</y>
+     <width>151</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Cantidad de dias 
+ Transcurridos</string>
+   </property>
+   <property name="textFormat">
+    <enum>Qt::PlainText</enum>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <zorder>groupBox</zorder>
+  <zorder>groupBox_2</zorder>
+  <zorder>groupBox_3</zorder>
+  <zorder>gridLayoutWidget_4</zorder>
+  <zorder>sin_elevador_label</zorder>
+  <zorder>lcdNumber</zorder>
+  <zorder>label</zorder>
  </widget>
  <resources/>
  <connections/>

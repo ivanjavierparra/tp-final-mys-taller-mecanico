@@ -2,7 +2,7 @@ class Vehiculo:
     """
     Clase que representa el vehiculo
     """
-    def __init__(self, patente, usa_elevador, espera, reparacion, tiempo_total):
+    def __init__(self, patente, usa_elevador=False, espera=None, =None, tiempo_total):
         self.patente = patente
         self.usa_elevador = usa_elevador
         self.tiempo_espera = espera

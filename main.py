@@ -1,10 +1,12 @@
 import numpy as np
 from modelo import Taller
-
+from modelo import Evento
+from modelo import Vehiculo
 
 DIAS_DE_SIMULACION = 30
 #60 mintos por hora * las 10 horas laborales.
 MINUTOS_DE_SIMULACION_POR_DIA = 600
+PORCENTAJE_DE_AUTOS_CON_ELEVADOR = 70
 
 """ EVENTOS """
 LLEGA_VEHICULO = 1  #cuando llega un vehiculo al taller
@@ -13,12 +15,58 @@ SALE_VEHICULO = 3   #cuando un vehiculo sale del taller
 """ ------- """
 
 def generar_cola_eventos_ordenada():
+    lista_eventos = []
     """
-    En este metodo vamos a generar la cola de eventos DIARIA
-    que manejará el main
-    Se utilizará numpy y las definiciones de desvio, media, etc.
+    Variables necesarias de generar:
+    * Eventos de llegadas de los autos(15 por dia con dist. Poisson y 70% requieren elevador)
+    * A cada auto que llega le tengo que poner:
+        * patente
+        * usa_elevador * tiempo_reparacion(1hr Dist. Exponencial)
+        * tiempo_total (1dia Dist. Exponencial)
     """
-    pass
+
+    for dia in range(DIAS_DE_SIMULACION):
+        """
+        Por cada dia debo generar los 15~ eventos teniendo en cuenta el los minutos de ese día
+        """
+        minutos_diarios_usados = []
+        #Caluclo la cantidad de autos para este día
+        cantidad_de_autos = np.random.poisson(15)
+        #De esa cantidad utilizando el PORCENTAJE (70%) me quedo con la cantidad de autos que no requieren elevador
+        cant_autos_usan_elevador = (cantidad_de_autos * PORCENTAJE_DE_AUTOS_CON_ELEVADOR)/100
+        #Itereo por la cantidad de autos que NO requieren elevador
+        for auto in cantidad_de_autos - cant_autos_usan_elevador:
+            #Primero le asigo un minto del dia
+            minuto_de_ocurrencia_evento = np.random.randint(0,MINUTOS_DE_SIMULACION_POR_DIA)[0] + (dia * MINUTOS_DE_SIMULACION_POR_DIA)
+            #Mientras el numero sea repetido genero un nuevo
+            while minuto_de_ocurrencia_evento in minutos_diarios_usados:
+                minuto_de_ocurrencia_evento = np.random.randint(0,MINUTOS_DE_SIMULACION_POR_DIA)[0] + (dia * MINUTOS_DE_SIMULACION_POR_DIA)
+            #Cuando encuentro un minuto nuevo lo agrego a la lista para futuras comparaciones
+            minutos_diarios_usados.append(minuto_de_ocurrencia_evento)
+            #Calculamos el tiempo de permanencia del auto
+            tiempo_permanencia = 2 #TODO FALTA CALCULAR
+            #Genero el Vehiculo
+            vehiculo = Vehiculo(minuto_de_ocurrencia_evento,False,tiempo_total=tiempo_permanencia)
+            #Genereo el evento
+            evento = Evento(LLEGA_VEHICULO,minuto_de_ocurrencia_evento,None,vehiculo)
+            lista_eventos.append(evento)
+        for auto in cant_autos_usan_elevador:
+            #Primero le asigo un minto del dia
+            minuto_de_ocurrencia_evento = np.random.randint(0,MINUTOS_DE_SIMULACION_POR_DIA)[0] + (dia * MINUTOS_DE_SIMULACION_POR_DIA)
+            #Mientras el numero sea repetido genero un nuevo
+            while minuto_de_ocurrencia_evento in minutos_diarios_usados:
+                minuto_de_ocurrencia_evento = np.random.randint(0,MINUTOS_DE_SIMULACION_POR_DIA)[0] + (dia * MINUTOS_DE_SIMULACION_POR_DIA)
+            #Cuando encuentro un minuto nuevo lo agrego a la lista para futuras comparaciones
+            minutos_diarios_usados.append(minuto_de_ocurrencia_evento)
+            #Calculamos el tiempo de permanencia del auto
+            tiempo_permanencia = 2 #TODO FALTA CALCULAR
+            #Calculamos el tiempo de uso del elvador del auto
+            tiempo_reparacion = 3 #TODO FALTA CALCULAR
+            #Genero el Vehiculo
+            vehiculo = Vehiculo(minuto_de_ocurrencia_evento,True,reparacion=tiempo_reparacion,tiempo_total=tiempo_permanencia)
+            #Genereo el evento
+            evento = Evento(LLEGA_VEHICULO,minuto_de_ocurrencia_evento,None,vehiculo)
+            lista_eventos.append(evento)
 
 def get_evento_proximo(cola_eventos):
     if (len(cola_eventos) > 0):
