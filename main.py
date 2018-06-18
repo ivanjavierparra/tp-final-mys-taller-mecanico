@@ -32,7 +32,7 @@ def generar_cola_eventos_ordenada():
         #Caluclo la cantidad de autos para este día
         cantidad_de_autos = np.random.poisson(15)
         #De esa cantidad utilizando el PORCENTAJE (70%) me quedo con la cantidad de autos que no requieren elevador
-        cant_autos_usan_elevador = (cantidad_de_autos * PORCENTAJE_DE_AUTOS_CON_ELEVADOR)/100
+        cant_autos_usan_elevador = (cantidad_de_autos * PORCENTAJE_DE_AUTOS_CON_ELEVADOR)/100# TODO REVISAR
         #Itereo por la cantidad de autos que NO requieren elevador
         for auto in cantidad_de_autos - cant_autos_usan_elevador:
             #Primero le asigo un minto del dia
@@ -66,7 +66,9 @@ def generar_cola_eventos_ordenada():
             #Genereo el evento
             evento = Evento(LLEGA_VEHICULO,minuto_de_ocurrencia_evento,None,vehiculo)
             lista_eventos.append(evento)
+    return lista_eventos
 
+    
 def get_evento_proximo(cola_eventos):
     if (len(cola_eventos) > 0):
         proximo_evento = cola_eventos[0]
