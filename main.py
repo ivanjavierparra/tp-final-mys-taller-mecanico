@@ -68,7 +68,10 @@ def generar_cola_eventos_ordenada():
             lista_eventos.append(evento)
     return lista_eventos
 
-def calcular_exponencial():
+def calcular_exponencial(valor_promedio):
+    np.random.exponential(valor_promedio)
+    #NOTA 1: si es tiempo de permanencia en taller: tomamos minutos o dias????
+    #NOTA 2: si es tiempo en elevador: ¿minutos u horas?
     pass
     
 def get_evento_proximo(cola_eventos):
