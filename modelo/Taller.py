@@ -59,3 +59,12 @@ class Taller:
 
     def get_galpon(self):
         return self.galpon
+
+
+    def actualizarEstadoGUI():
+        #cantidad de autos en el galpon
+        #cantidad de mecanicos ocupados
+        #cantidad de mecanicos libres
+        #cantidad de elevadores ocupados
+        #cantidad de elevadores libres
+        pass

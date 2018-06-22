@@ -68,6 +68,8 @@ def generar_cola_eventos_ordenada():
             lista_eventos.append(evento)
     return lista_eventos
 
+def calcular_exponencial():
+    pass
     
 def get_evento_proximo(cola_eventos):
     if (len(cola_eventos) > 0):
@@ -111,7 +113,7 @@ def ejecutar_evento(un_evento, taller, reloj, cola_eventos): # tambien puede lla
                         agregar_evento(cola_eventos, evento_nuevo)
 
                 #rechazamos el vehiculo cuando no hay lugar en el galpon
-                #contador se vehiculos rechazados
+                #NOTA: aca incremento contador de vehiculos rechazados
 
             
         elif(un_evento.get_tipo() == FINALIZA_REPARACION):
@@ -132,11 +134,19 @@ def ejecutar_evento(un_evento, taller, reloj, cola_eventos): # tambien puede lla
                     reparacion.elevador = taller.get_elevador_libre()
                 tiempo = 800
                 evento = Evento(FINALIZA_REPARACION, tiempo, reparacion)
+            
+            #Nota: aca incremento el contador de reparaciones
         else:
             # SALE_VEHICULO
             taller.egresar_vehiculo(un_evento.get_vehiculo())
 
         #ELIMINAR EVENTO DE LA LISTA
+
+
+        #NOTA: Cualquiera sea el evento, actualizo el estado en la interfaz grafica, llamando a Taller.actualizarEstadoGUI()
+
+def calcular_dias_transcurridos(valor_reloj):
+    return int((valor_reloj/MINUTOS_DE_SIMULACION_POR_DIA) + 1)
 
 def main():
 
@@ -146,6 +156,9 @@ def main():
     taller = Taller()
     #Generar la cola de eventos.
     cola_eventos = generar_cola_eventos_ordenada()
+
+    #Se usa para actualizar la intefaz de usuario
+    cantidad_dias_transcurridos = 0
 
     while (True):
         #Obtenemos el evento correspondiente
@@ -159,10 +172,13 @@ def main():
             #otro evento en la cola de eventos
             if respuesta:
                 agregar_evento(cola_eventos,respuesta)
+            
+            #actualizamos interfaz grafica
+            #txt_cantidad_dias_transcurridos.setText() = calcular_dias_transcurridos(reloj.get_valor())
         else:
             break
         
-    #Aca hariamos calculos para armar el grafico
+    #Aca hariamos calculos para armar el grafico 
 
 if __name__ == '__main__':
     main()
