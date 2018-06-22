@@ -97,6 +97,7 @@ def ejecutar_evento(un_evento, taller, reloj, cola_eventos): # tambien puede lla
                             reparacion = taller.iniciar_reparacion(evento.get_vehiculo(), mecanico, elevador)
                             evento_nuevo = Evento(FINALIZA_REPARACION, (reloj.get_tiempo() + vehiculo.get_tiempo_reparacion()), reparacion, vehiculo) 
                             agregar_evento(cola_eventos, evento_nuevo)
+                            #seteamos tiempo de uso del elevador "x" con el tiemop_reparacion
                     else:
                         reparacion = taller.iniciar_reparacion(evento.get_vehiculo(), mecanico)
                         vehiculo.set_tiempo_espera( (reloj.get_tiempo() - un_evento.get_tiempo()))
@@ -161,6 +162,7 @@ def main():
         else:
             break
         
+    #Aca hariamos calculos para armar el grafico
 
 if __name__ == '__main__':
     main()

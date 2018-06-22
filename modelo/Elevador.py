@@ -17,3 +17,6 @@ class Elevador:
     
     def set_tiempo_uso(self, nuevo_valor):
         self.tiempo_uso = nuevo_valor
+
+    #NOTA 1: elevador tendría que tener lista[dias] donde guarda por c/dia el tiempo de uso.
+    #NOTA 2: funcion getDia(valor_del_reloj)---> dia = (valor_del_reloj/600) + 1   ---> hay que truncar... 
