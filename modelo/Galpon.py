@@ -3,7 +3,7 @@ class Galpon:
     Clase que representa el Galpon
     """
     def __init__(self, capacidad):
-        self.capacidad_max = capacidad;
+        self.capacidad_max = capacidad
         self.espacio = []
         
     def get_espacio_libre(self):
