@@ -1,26 +1,26 @@
 #Importamos las librerias necesarias
-import Vehiculo
-import Mecanico
-import Elevador
-import Galpon
-import Reparacion
+from .Vehiculo import Vehiculo
+from .Mecanico import Mecanico
+from .Elevador import Elevador
+from .Galpon import Galpon
+from .Reparacion import Reparacion
 
 
 class Taller:
     """
     Clase que representa el taller
     """
-    def __init__(self, cantidad_mecanicos=3, cantidad_elevadores=3, galpon=Galpon(10), reparaciones=[]):
+    def __init__(self, cantidad_mecanicos=3, cantidad_elevadores=3, reparaciones=[]):
         
         self.mecanicos = []
-        for i in range cantidad_mecanicos:
+        for i in range (cantidad_mecanicos):
             self.mecanicos.append(Mecanico())
 
         self.elevadores = []
         for i in range(cantidad_elevadores):
             self.elevadores.append(Elevador())
 
-        self.galpon = galpon
+        self.galpon = Galpon(10)
 
         self.reparaciones = reparaciones
 
@@ -48,14 +48,14 @@ class Taller:
         un_mecanico.set_disponible(False) #Pasar mecanico a ocupado
         if (un_elevador != None):
             un_elevador.set_disponible(False) #Pasar elevador a ocupado
-        return reparacion
+        return una_reparacion
 
     def finalizar_reparacion(self, una_reparacion):
         self.reparaciones.remove(una_reparacion)
         una_reparacion.get_mecanico().set_disponible(True) #Pasar mecanico a disponible
         if (una_reparacion.get_elevador() != None):
             una_reparacion.get_elevador().set_disponible(True) #Pasar elevador a disponible
-        una_raparacion.__del__()
+        
 
     def get_galpon(self):
         return self.galpon
