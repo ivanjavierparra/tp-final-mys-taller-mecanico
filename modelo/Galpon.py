@@ -17,12 +17,18 @@ class Galpon:
         
     #Este metodo se llama cuando el vehiculo entra al taller
     def ingreso_vehiculo(self,vehiculo):
-        if not self.esta_lleno:
+        if not self.esta_lleno():
             self.espacio.append(vehiculo)
             return True
         else:
             return False
     
+    def get_proximos_vehiculos(self):
+        vehiculos_no_reparados = []
+        for vehiculo in self.espacio:
+            if not vehiculo.reparado: 
+                vehiculos_no_reparados.append(vehiculo)
+        return vehiculos_no_reparados
 
     #Este metodo se llama cuando el vehiculo sale del taller
     def salida_vehiculo(self,vehiculo):

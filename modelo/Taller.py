@@ -24,6 +24,17 @@ class Taller:
 
         self.reparaciones = reparaciones
 
+    def get_vehiculo_libre(self):
+        vehiculos_galpon = []
+        vehiculos_galpon = self.galpon.get_proximos_vehiculos()
+        vehiculos_reparacion = []
+        for reparacion in self.reparaciones:
+            vehiculos_reparacion.append(reparacion.get_vehiculo())
+        for vehiculo in vehiculos_galpon:
+            if not vehiculo in vehiculos_reparacion:
+                return vehiculo
+        return None        
+
     def get_elevador_libre(self):
         for un_elevador in self.elevadores:
             if(un_elevador.get_disponible()):

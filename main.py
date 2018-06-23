@@ -4,6 +4,8 @@ from modelo.Taller import Taller
 from modelo.Evento import Evento
 from modelo.Vehiculo import Vehiculo
 
+from modelo.Reparacion import Reparacion
+
 import bisect
 
 DIAS_DE_SIMULACION = 30
@@ -146,17 +148,17 @@ def ejecutar_evento(un_evento, taller, reloj, cola_eventos): # tambien puede lla
                 taller.finalizar_reparacion(reparacion)
             else:
                 taller.finalizar_reparacion(reparacion)
-                galpon.salida_vehiculo(reparacion.get_vehiculo)
+                taller.egresar_vehiculo(reparacion.get_vehiculo())
                 #Creo nuevo evento de reparacion
-                reparacion = Reparacion()
-                vehiculo = galpon.get_vehiculo()
-                reparacion.vehiculo = vehiculo
-                reparacion.mecanico = taller.get_mecanico_libre()
-                if (vehiculo.usa_elevador()):
-                    reparacion.elevador = taller.get_elevador_libre()
-                tiempo = calcular_exponencial(60,True)
-                evento = Evento(FINALIZA_REPARACION, tiempo, reparacion)
-            reparaciones_realizadas += 1
+                vehiculo = taller.get_vehiculo_libre()
+                if vehiculo:
+                    mecanico = taller.get_mecanico_libre()
+                    reparacion = Reparacion(vehiculo, mecanico)
+                    if (vehiculo.get_usa_elevador()):
+                        reparacion.elevador = taller.get_elevador_libre()
+                    tiempo = calcular_exponencial(60, True)
+                    evento = Evento(FINALIZA_REPARACION, (reloj.get_valor() + tiempo), reparacion)
+            reparaciones_realizadas =+ 1
         else:
             taller.egresar_vehiculo(un_evento.get_vehiculo())
 
@@ -180,21 +182,24 @@ def main():
     while (True):
         #Obtenemos el evento correspondiente
         evento = get_evento_proximo(cola_eventos)
-        #Adelantamos el reloj hasta el tiempo del proximo evento
-        reloj.set_valor(evento.get_tiempo())        
-        #Procesamos el evento
-        if (reloj.get_valor() < DIAS_DE_SIMULACION * MINUTOS_DE_SIMULACION_POR_DIA):
-            respuesta = ejecutar_evento(evento, taller,reloj,cola_eventos)
-            #Dada la respuesta definimos si hay que agregar
-            #otro evento en la cola de eventos
-            if respuesta:
-                agregar_evento(cola_eventos,respuesta)
-            
-            #actualizamos interfaz grafica
-            #txt_cantidad_dias_transcurridos.setText() = calcular_dias_transcurridos(reloj.get_valor())
+        if evento:
+            #Adelantamos el reloj hasta el tiempo del proximo evento
+            reloj.set_valor(evento.get_tiempo())        
+            #Procesamos el evento
+            if (reloj.get_valor() < DIAS_DE_SIMULACION * MINUTOS_DE_SIMULACION_POR_DIA):
+                respuesta = ejecutar_evento(evento, taller,reloj,cola_eventos)
+                #Dada la respuesta definimos si hay que agregar
+                #otro evento en la cola de eventos
+                if respuesta:
+                    agregar_evento(cola_eventos,respuesta)
+                
+                #actualizamos interfaz grafica
+                #txt_cantidad_dias_transcurridos.setText() = calcular_dias_transcurridos(reloj.get_valor())
+            else:
+                break
         else:
             break
-        
+            print("No Hay mas eventos, tiempo reloj: ", reloj.get_valor())
     #Aca hariamos calculos para armar el grafico 
 
 if __name__ == '__main__':
