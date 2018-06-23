@@ -196,10 +196,11 @@ def main():
                 #actualizamos interfaz grafica
                 #txt_cantidad_dias_transcurridos.setText() = calcular_dias_transcurridos(reloj.get_valor())
             else:
+                print("No Hay mas tiempo, tiempo reloj: ", reloj.get_valor())
                 break
         else:
-            break
             print("No Hay mas eventos, tiempo reloj: ", reloj.get_valor())
+            break
     #Aca hariamos calculos para armar el grafico 
 
 if __name__ == '__main__':
