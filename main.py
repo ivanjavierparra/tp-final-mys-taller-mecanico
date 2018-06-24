@@ -62,7 +62,7 @@ def generar_cola_eventos_ordenada():
         cant_autos_usan_elevador = int((cantidad_de_autos * PORCENTAJE_DE_AUTOS_CON_ELEVADOR)/100)
         #Itereo por la cantidad de autos que NO requieren elevador
         for auto in range(cantidad_de_autos - cant_autos_usan_elevador):
-            #Primero le asigo un minto del dia
+            #Primero le asigo un minuto del dia
             minuto_de_ocurrencia_evento = np.random.randint(0,MINUTOS_DE_SIMULACION_POR_DIA) + (dia * MINUTOS_DE_SIMULACION_POR_DIA)
             #Mientras el numero sea repetido genero un nuevo
             while minuto_de_ocurrencia_evento in minutos_diarios_usados:
