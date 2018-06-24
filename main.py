@@ -1,12 +1,16 @@
+from controladores.controlador_menu_principal import ControladorMenuPrincipal
+from PyQt5.QtWidgets import QApplication
+import sys
+
+
 import numpy as np
 from modelo.Reloj import Reloj
 from modelo.Taller import Taller
 from modelo.Evento import Evento
 from modelo.Vehiculo import Vehiculo
-
 from modelo.Reparacion import Reparacion
-
 import bisect
+
 
 DIAS_DE_SIMULACION = 30
 #60 mintos por hora * las 10 horas laborales.
@@ -17,8 +21,8 @@ PORCENTAJE_DE_AUTOS_CON_ELEVADOR = 70
 LLEGA_VEHICULO = 1  #cuando llega un vehiculo al taller
 FINALIZA_REPARACION = 2 #cuando finaliza la reparacion de un vehiculo
 SALE_VEHICULO = 3   #cuando un vehiculo sale del taller
-""" ------- """
 
+""" Variables que actualizan valores """
 reparaciones_realizadas = 0
 
 def calcular_exponencial(valor_promedio,tiempo_reparacion):
@@ -38,7 +42,6 @@ def calcular_exponencial(valor_promedio,tiempo_reparacion):
             return 900
         else:
             return aux
-    
 
 def generar_cola_eventos_ordenada():
     lista_eventos = []
@@ -95,7 +98,6 @@ def generar_cola_eventos_ordenada():
             lista_eventos.append(evento)
     return lista_eventos
 
-    
 def get_evento_proximo(cola_eventos):
     if (len(cola_eventos) > 0):
         proximo_evento = cola_eventos[0]
@@ -203,5 +205,11 @@ def main():
             break
     #Aca hariamos calculos para armar el grafico 
 
+def mostrar_ventana():
+    app = QApplication(sys.argv)
+    ventana = ControladorMenuPrincipal()
+    ventana.show()
+    sys.exit(app.exec_())
+
 if __name__ == '__main__':
-    main()
+    mostrar_ventana()

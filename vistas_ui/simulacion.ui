@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>851</width>
+    <width>684</width>
     <height>485</height>
    </rect>
   </property>
@@ -16,8 +16,8 @@
   <widget class="QGroupBox" name="groupBox">
    <property name="geometry">
     <rect>
-     <x>520</x>
-     <y>30</y>
+     <x>350</x>
+     <y>20</y>
      <width>321</width>
      <height>221</height>
     </rect>
@@ -141,7 +141,7 @@
   <widget class="QGroupBox" name="groupBox_2">
    <property name="geometry">
     <rect>
-     <x>520</x>
+     <x>10</x>
      <y>260</y>
      <width>321</width>
      <height>221</height>
@@ -348,38 +348,17 @@
   <widget class="QWidget" name="gridLayoutWidget_4">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>250</y>
+     <x>350</x>
+     <y>410</y>
      <width>321</width>
-     <height>221</height>
+     <height>61</height>
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout_4">
     <item row="0" column="0">
-     <widget class="QPushButton" name="pausar_simulacion_button">
-      <property name="text">
-       <string>Pausar Simulación</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="1">
-     <widget class="QPushButton" name="reanudar_simulacion_button">
-      <property name="text">
-       <string>Reanudar Simulación</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="0">
      <widget class="QPushButton" name="ver_informe_button">
       <property name="text">
        <string>Ver Informe Detallado</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="1">
-     <widget class="QPushButton" name="finalizar_simulacion_button">
-      <property name="text">
-       <string>Finalizar Simulación</string>
       </property>
      </widget>
     </item>
@@ -388,25 +367,24 @@
   <widget class="QLCDNumber" name="lcdNumber">
    <property name="geometry">
     <rect>
-     <x>353</x>
-     <y>82</y>
+     <x>340</x>
+     <y>250</y>
      <width>151</width>
-     <height>111</height>
+     <height>131</height>
     </rect>
    </property>
   </widget>
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>350</x>
-     <y>200</y>
+     <x>510</x>
+     <y>290</y>
      <width>151</width>
      <height>51</height>
     </rect>
    </property>
    <property name="text">
-    <string>Cantidad de dias 
- Transcurridos</string>
+    <string>Dias Transcurridos</string>
    </property>
    <property name="textFormat">
     <enum>Qt::PlainText</enum>
@@ -415,13 +393,6 @@
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <zorder>groupBox</zorder>
-  <zorder>groupBox_2</zorder>
-  <zorder>groupBox_3</zorder>
-  <zorder>gridLayoutWidget_4</zorder>
-  <zorder>sin_elevador_label</zorder>
-  <zorder>lcdNumber</zorder>
-  <zorder>label</zorder>
  </widget>
  <resources/>
  <connections/>

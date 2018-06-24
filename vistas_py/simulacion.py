@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'SimulacionDialog.ui'
+# Form implementation generated from reading ui file 'simulacion.ui'
 #
 # Created by: PyQt5 UI code generator 5.9.2
 #
@@ -8,10 +8,10 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-class Ui_Dialog(object):
+class Simulacion(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(675, 475)
+        Dialog.resize(684, 485)
         self.groupBox = QtWidgets.QGroupBox(Dialog)
         self.groupBox.setGeometry(QtCore.QRect(350, 20, 321, 221))
         self.groupBox.setObjectName("groupBox")
@@ -62,7 +62,7 @@ class Ui_Dialog(object):
         self.cant_elevadores_libres_val_label.setObjectName("cant_elevadores_libres_val_label")
         self.gridLayout.addWidget(self.cant_elevadores_libres_val_label, 4, 1, 1, 1)
         self.groupBox_2 = QtWidgets.QGroupBox(Dialog)
-        self.groupBox_2.setGeometry(QtCore.QRect(350, 250, 321, 221))
+        self.groupBox_2.setGeometry(QtCore.QRect(10, 260, 321, 221))
         self.groupBox_2.setObjectName("groupBox_2")
         self.gridLayoutWidget_2 = QtWidgets.QWidget(self.groupBox_2)
         self.gridLayoutWidget_2.setGeometry(QtCore.QRect(10, 40, 301, 171))
@@ -70,9 +70,6 @@ class Ui_Dialog(object):
         self.gridLayout_2 = QtWidgets.QGridLayout(self.gridLayoutWidget_2)
         self.gridLayout_2.setContentsMargins(0, 0, 0, 0)
         self.gridLayout_2.setObjectName("gridLayout_2")
-        self.sin_elevador_label = QtWidgets.QLabel(self.gridLayoutWidget_2)
-        self.sin_elevador_label.setObjectName("sin_elevador_label")
-        self.gridLayout_2.addWidget(self.sin_elevador_label, 3, 0, 1, 1)
         self.cant_autos_reparados_val_label = QtWidgets.QLabel(self.gridLayoutWidget_2)
         self.cant_autos_reparados_val_label.setAlignment(QtCore.Qt.AlignCenter)
         self.cant_autos_reparados_val_label.setObjectName("cant_autos_reparados_val_label")
@@ -109,6 +106,9 @@ class Ui_Dialog(object):
         self.cant_autos_rechazados_val_label.setAlignment(QtCore.Qt.AlignCenter)
         self.cant_autos_rechazados_val_label.setObjectName("cant_autos_rechazados_val_label")
         self.gridLayout_2.addWidget(self.cant_autos_rechazados_val_label, 4, 1, 1, 1)
+        self.sin_elevador_label = QtWidgets.QLabel(self.gridLayoutWidget_2)
+        self.sin_elevador_label.setObjectName("sin_elevador_label")
+        self.gridLayout_2.addWidget(self.sin_elevador_label, 3, 0, 1, 1)
         self.groupBox_3 = QtWidgets.QGroupBox(Dialog)
         self.groupBox_3.setGeometry(QtCore.QRect(10, 20, 321, 221))
         self.groupBox_3.setObjectName("groupBox_3")
@@ -143,23 +143,22 @@ class Ui_Dialog(object):
         self.cant_elevadores_label.setObjectName("cant_elevadores_label")
         self.gridLayout_3.addWidget(self.cant_elevadores_label, 2, 0, 1, 1)
         self.gridLayoutWidget_4 = QtWidgets.QWidget(Dialog)
-        self.gridLayoutWidget_4.setGeometry(QtCore.QRect(10, 250, 321, 221))
+        self.gridLayoutWidget_4.setGeometry(QtCore.QRect(350, 410, 321, 61))
         self.gridLayoutWidget_4.setObjectName("gridLayoutWidget_4")
         self.gridLayout_4 = QtWidgets.QGridLayout(self.gridLayoutWidget_4)
         self.gridLayout_4.setContentsMargins(0, 0, 0, 0)
         self.gridLayout_4.setObjectName("gridLayout_4")
-        self.pausar_simulacion_button = QtWidgets.QPushButton(self.gridLayoutWidget_4)
-        self.pausar_simulacion_button.setObjectName("pausar_simulacion_button")
-        self.gridLayout_4.addWidget(self.pausar_simulacion_button, 0, 0, 1, 1)
-        self.reanudar_simulacion_button = QtWidgets.QPushButton(self.gridLayoutWidget_4)
-        self.reanudar_simulacion_button.setObjectName("reanudar_simulacion_button")
-        self.gridLayout_4.addWidget(self.reanudar_simulacion_button, 0, 1, 1, 1)
         self.ver_informe_button = QtWidgets.QPushButton(self.gridLayoutWidget_4)
         self.ver_informe_button.setObjectName("ver_informe_button")
-        self.gridLayout_4.addWidget(self.ver_informe_button, 1, 0, 1, 1)
-        self.finalizar_simulacion_button = QtWidgets.QPushButton(self.gridLayoutWidget_4)
-        self.finalizar_simulacion_button.setObjectName("finalizar_simulacion_button")
-        self.gridLayout_4.addWidget(self.finalizar_simulacion_button, 1, 1, 1, 1)
+        self.gridLayout_4.addWidget(self.ver_informe_button, 0, 0, 1, 1)
+        self.lcdNumber = QtWidgets.QLCDNumber(Dialog)
+        self.lcdNumber.setGeometry(QtCore.QRect(340, 250, 151, 131))
+        self.lcdNumber.setObjectName("lcdNumber")
+        self.label = QtWidgets.QLabel(Dialog)
+        self.label.setGeometry(QtCore.QRect(510, 290, 151, 51))
+        self.label.setTextFormat(QtCore.Qt.PlainText)
+        self.label.setAlignment(QtCore.Qt.AlignCenter)
+        self.label.setObjectName("label")
 
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
@@ -179,7 +178,6 @@ class Ui_Dialog(object):
         self.cant_elevadores_libres_label.setText(_translate("Dialog", "Cantidad de Elevadores libres"))
         self.cant_elevadores_libres_val_label.setText(_translate("Dialog", "1"))
         self.groupBox_2.setTitle(_translate("Dialog", "Datos Generales"))
-        self.sin_elevador_label.setText(_translate("Dialog", "+ Sin Elevador"))
         self.cant_autos_reparados_val_label.setText(_translate("Dialog", "23"))
         self.sin_elevador_val_label.setText(_translate("Dialog", "2"))
         self.cant_autos_reparados_label.setText(_translate("Dialog", "Cantidad de Autos reparados"))
@@ -189,6 +187,7 @@ class Ui_Dialog(object):
         self.con_elevador_label.setText(_translate("Dialog", "+ Con Elevador"))
         self.cant_autos_rechazados_label.setText(_translate("Dialog", "Cantidad de Autos Rechazados"))
         self.cant_autos_rechazados_val_label.setText(_translate("Dialog", "1"))
+        self.sin_elevador_label.setText(_translate("Dialog", "+ Sin Elevador"))
         self.groupBox_3.setTitle(_translate("Dialog", "Datos de Entrada"))
         self.cant_mecanicos_val_label.setText(_translate("Dialog", "3"))
         self.cant_mecanicos_label.setText(_translate("Dialog", "Cantidad de Mecánicos"))
@@ -196,8 +195,6 @@ class Ui_Dialog(object):
         self.dias_simulacion_label.setText(_translate("Dialog", "Días de Simulación"))
         self.dias_simulacion_val_label.setText(_translate("Dialog", "30"))
         self.cant_elevadores_label.setText(_translate("Dialog", "Cantidad de Elevadores"))
-        self.pausar_simulacion_button.setText(_translate("Dialog", "Pausar Simulación"))
-        self.reanudar_simulacion_button.setText(_translate("Dialog", "Reanudar Simulación"))
         self.ver_informe_button.setText(_translate("Dialog", "Ver Informe Detallado"))
-        self.finalizar_simulacion_button.setText(_translate("Dialog", "Finalizar Simulación"))
+        self.label.setText(_translate("Dialog", "Dias Transcurridos"))
 

@@ -1,2 +1,4 @@
 .vscode
 modelo/__pycache__/
+controladores/__pycache__/
+vistas_py/__pycache__/
