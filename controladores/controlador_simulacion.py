@@ -19,5 +19,6 @@ class ControladorSimulacion(QDialog):
         self.pantalla_simulacion.cant_mecanicos_val_label.setText(str(self.cantidad_mecanicos))
         self.pantalla_simulacion.dias_simulacion_val_label.setText(str(self.dias_simulacion))
         self.pantalla_simulacion.ver_informe_button.setEnabled(False)
-        
+        self.menu_principal.comenzar_button.clicked.connect(self.comenzar_simulacion)
+
         
