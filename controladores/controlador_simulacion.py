@@ -1,7 +1,7 @@
-from PyQt5.QtWidgets import QDialog
+from PyQt5.QtWidgets import QMainWindow
 from vistas_py.simulacion import Simulacion
 
-class ControladorSimulacion(QDialog):
+class ControladorSimulacion(QMainWindow):
 
     def __init__(self, cantidad_elevadores, cantidad_mecanicos, dias_simulacion):
         super(ControladorSimulacion, self).__init__()
@@ -19,6 +19,6 @@ class ControladorSimulacion(QDialog):
         self.pantalla_simulacion.cant_mecanicos_val_label.setText(str(self.cantidad_mecanicos))
         self.pantalla_simulacion.dias_simulacion_val_label.setText(str(self.dias_simulacion))
         self.pantalla_simulacion.ver_informe_button.setEnabled(False)
-        self.menu_principal.comenzar_button.clicked.connect(self.comenzar_simulacion)
+        #self.menu_principal.comenzar_button.clicked.connect(self.comenzar_simulacion)
 
         

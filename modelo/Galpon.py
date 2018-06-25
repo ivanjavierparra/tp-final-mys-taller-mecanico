@@ -9,11 +9,11 @@ class Galpon:
     def get_espacio_libre(self):
         return self.capacidad_max - len(self.espacio)
     
+    def get_espacio_ocupado(self):
+        return len(self.espacio)
+    
     def esta_lleno(self):
-        if len(self.espacio) == self.capacidad_max:
-            return True
-        else:
-            return False
+        return len(self.espacio) == self.capacidad_max
         
     #Este metodo se llama cuando el vehiculo entra al taller
     def ingreso_vehiculo(self,vehiculo):
