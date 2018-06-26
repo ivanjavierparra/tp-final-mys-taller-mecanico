@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import QMainWindow
 from vistas_py.simulacion import Simulacion
+from .controlador_graficos import ControladorGraficos
 
 class ControladorSimulacion(QMainWindow):
 
@@ -19,6 +20,10 @@ class ControladorSimulacion(QMainWindow):
         self.pantalla_simulacion.cant_mecanicos_val_label.setText(str(self.cantidad_mecanicos))
         self.pantalla_simulacion.dias_simulacion_val_label.setText(str(self.dias_simulacion))
         self.pantalla_simulacion.ver_informe_button.setEnabled(False)
-        #self.menu_principal.comenzar_button.clicked.connect(self.comenzar_simulacion)
+        self.pantalla_simulacion.ver_informe_button.clicked.connect(self.mostrar_graficos)
+        
+    def mostrar_graficos(self):
+        ventana = ControladorGraficos()
+        ventana.exec_()
 
         

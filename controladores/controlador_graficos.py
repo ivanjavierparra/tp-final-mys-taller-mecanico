@@ -1,16 +1,17 @@
 from PyQt5.QtWidgets import QDialog
-from vistas_py.menu_principal import MenuPrincipal
+from PyQt5.QtGui import QPixmap
+from vistas_py.graficos import UiGraficos
 import os
 
-class ControladorMenuPrincipal(QDialog):
+class ControladorGraficos(QDialog):
     def __init__(self):
-        super(ControladorMenuPrincipal, self).__init__()
-        self.menu_principal = MenuPrincipal()
-        self.menu_principal.setupUi(self)
+        super(ControladorGraficos, self).__init__()
+        self.pantalla_graficos = UiGraficos()
+        self.pantalla_graficos.setupUi(self)
         self.cantidad_elevadores = 0
         self.cantidad_mecanicos = 0
         self.dias_simulacion = 0
-        self.menu_principal.comenzar_button.clicked.connect(self.comenzar_simulacion)
+        
         
 
     def comenzar_simulacion(self):
