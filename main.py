@@ -2,7 +2,7 @@ from controladores.controlador_menu_principal import ControladorMenuPrincipal
 from PyQt5.QtWidgets import QApplication
 from controladores.controlador_simulacion import ControladorSimulacion
 import sys,time
-
+from PyQt5 import QtTest
 
 import numpy as np
 from modelo.Reloj import Reloj
@@ -221,6 +221,7 @@ def main(pantalla,cantidad_elevadores,cantidad_mecanicos,dias_simulacion):
             print("No Hay mas eventos, tiempo reloj: ", reloj.get_valor())
             print(dias_transcurridos)
             break
+        QtTest.QTest.qWait(1000)
     #Aca hariamos calculos para armar el grafico 
     print("Termine la simulación")
     actualizar_pantalla(pantalla,dias_transcurridos, taller,True)
