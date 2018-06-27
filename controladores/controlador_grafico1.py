@@ -32,6 +32,9 @@ class ControladorGrafico1(QDialog):
         print("tamaño: " + str(len(self.elevadores)))
         #Estas son las listas de cada elevador. Cada lugar del arreglo representa un dia.
         
+
+        
+
         elevadores = np.arange(len(self.elevadores))
         print(str(self.elevadores[0].get_arreglo_horas_dia()))
         print(str(self.elevadores[1].get_arreglo_horas_dia()))
@@ -44,7 +47,9 @@ class ControladorGrafico1(QDialog):
         dataset = [0] * len(self.elevadores)
         for i in range(0,len(self.elevadores)):
             elevador_arreglo = self.elevadores[i].get_arreglo_horas_dia()
-            dataset[i]  = float("{0:.2f}".format(((np.mean(elevador_arreglo)*100)/self.dias_simulacion)))
+            dataset[i]  = float("{0:.2f}".format(((np.mean(elevador_arreglo)*100)/(600))))
+            print("promedio: " + str(np.mean(elevador_arreglo)))
+            print("El valor es: " + str(dataset[i]))
             
 
 
@@ -78,16 +83,8 @@ class ControladorGrafico1(QDialog):
         plt.xlabel("Elevadores")
         plt.ylabel("Porcentaje de Uso")
 
+
+
         plt.savefig('fig1.png')
 
-        self.pantalla_graficos.grafico_label.setPixmap(QPixmap("fig1.png"))
-
-        
-
-
-
-    
-
-
-
-    
+        self.pantalla_graficos.grafico_uno_label.setPixmap(QPixmap("fig1.png"))

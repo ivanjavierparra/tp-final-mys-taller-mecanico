@@ -231,7 +231,7 @@ def main(controlador_simulacion, pantalla,cantidad_elevadores,cantidad_mecanicos
     #Se genera el reloj que guiará toda la simulación.
     reloj = Reloj()
     #Se genera la instancia de Taller.
-    taller = Taller(dias_simulacion,cantidad_elevadores,cantidad_mecanicos)
+    taller = Taller(dias_simulacion,cantidad_mecanicos,cantidad_elevadores)
     #Generar la cola de eventos.
     cola_eventos = generar_cola_eventos_ordenada(dias_simulacion)
     
