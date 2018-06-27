@@ -190,7 +190,7 @@ def main(pantalla,cantidad_elevadores,cantidad_mecanicos,dias_simulacion):
     #Se genera el reloj que guiará toda la simulación.
     reloj = Reloj()
     #Se genera la instancia de Taller.
-    taller = Taller(cantidad_elevadores,cantidad_mecanicos)
+    taller = Taller(dias_simulacion,cantidad_elevadores,cantidad_mecanicos)
     #Generar la cola de eventos.
     cola_eventos = generar_cola_eventos_ordenada(dias_simulacion)
     
@@ -221,7 +221,7 @@ def main(pantalla,cantidad_elevadores,cantidad_mecanicos,dias_simulacion):
             print("No Hay mas eventos, tiempo reloj: ", reloj.get_valor())
             print(dias_transcurridos)
             break
-        QtTest.QTest.qWait(1000)
+        #QtTest.QTest.qWait(1000)
     #Aca hariamos calculos para armar el grafico 
     print("Termine la simulación")
     actualizar_pantalla(pantalla,dias_transcurridos, taller,True)
@@ -230,7 +230,7 @@ def mostrar_ventana():
     app = QApplication(sys.argv)
     ventana_inicial = ControladorMenuPrincipal()
     ventana_inicial.exec_()
-    ventana_simulacion = ControladorSimulacion(ventana_inicial.cantidad_elevadores,ventana_inicial.cantidad_mecanicos,ventana_inicial.dias_simulacion)
+    ventana_simulacion = ControladorSimulacion(ventana_inicial.cantidad_elevadores,ventana_inicial.cantidad_mecanicos,ventana_inicial.dias_simulacion,[1,2,3],[4,5,6])
     ventana_simulacion.show()
     main(ventana_simulacion.pantalla_simulacion,ventana_simulacion.cantidad_elevadores,ventana_simulacion.cantidad_mecanicos,ventana_simulacion.dias_simulacion)
     sys.exit(app.exec_())

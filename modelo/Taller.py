@@ -10,7 +10,7 @@ class Taller:
     """
     Clase que representa el taller
     """
-    def __init__(self, cantidad_mecanicos=3, cantidad_elevadores=3, reparaciones=[]):
+    def __init__(self, dias_elevador, cantidad_mecanicos=3, cantidad_elevadores=3, reparaciones=[]):
         
         self.mecanicos = []
         for i in range (cantidad_mecanicos):
@@ -18,7 +18,7 @@ class Taller:
 
         self.elevadores = []
         for i in range(cantidad_elevadores):
-            self.elevadores.append(Elevador())
+            self.elevadores.append(Elevador(dias_elevador))
 
         self.galpon = Galpon(10)
 

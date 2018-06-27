@@ -4,12 +4,14 @@ from .controlador_graficos import ControladorGraficos
 
 class ControladorSimulacion(QMainWindow):
 
-    def __init__(self, cantidad_elevadores, cantidad_mecanicos, dias_simulacion):
+    def __init__(self, cantidad_elevadores, cantidad_mecanicos, dias_simulacion, elevadores=None, mecanicos=None):
         super(ControladorSimulacion, self).__init__()
         #Definicion de variables utilizadas parala simulación
         self.cantidad_elevadores = cantidad_elevadores
         self.cantidad_mecanicos = cantidad_mecanicos
         self.dias_simulacion = dias_simulacion
+        self.elevadores = elevadores
+        self.mecanicos = mecanicos
 
         #Cargamos la interfaz
         self.pantalla_simulacion = Simulacion()
@@ -23,7 +25,13 @@ class ControladorSimulacion(QMainWindow):
         self.pantalla_simulacion.ver_informe_button.clicked.connect(self.mostrar_graficos)
         
     def mostrar_graficos(self):
-        ventana = ControladorGraficos()
+        print("===============DASdasdadsadldksadlksm==========")
+        print("Dias de Simulacion: " + str(self.dias_simulacion))
+        ventana = ControladorGraficos(self.elevadores, self.mecanicos, self.dias_simulacion)
         ventana.exec_()
 
-        
+    def set_elevadores(self,arreglo):
+        self.elevadores = arreglo
+    
+    def set_mecanicos(self,arreglo):
+        self.mecanicos = arreglo
