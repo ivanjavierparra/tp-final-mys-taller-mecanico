@@ -127,9 +127,6 @@ def procesar_evento(un_evento, taller, reloj, cola_eventos): # tambien puede lla
                         reparacion = taller.iniciar_reparacion(vehiculo, mecanico, elevador)
                         evento_nuevo = Evento(FINALIZA_REPARACION, reloj.get_valor() + vehiculo.get_tiempo_reparacion(), reparacion, vehiculo) 
                         agregar_evento(cola_eventos, evento_nuevo)
-                        #Agrego el evento de Salida del auto cuando termine su tiempo de estadia
-                        #evento_nuevo = Evento(SALE_VEHICULO, reloj.get_valor() + vehiculo.get_tiempo_total(),un_vehiculo=vehiculo) 
-                        #agregar_evento(cola_eventos, evento_nuevo)
                 else:
                     vehiculo.set_tiempo_espera(0)
                     reparacion = taller.iniciar_reparacion(vehiculo, mecanico)
@@ -184,32 +181,38 @@ def procesar_evento(un_evento, taller, reloj, cola_eventos): # tambien puede lla
         #FIN GRAFICO
         
         #Tomo otro auto y creo nuevo evento de reparacion
-        vehiculo = taller.get_vehiculo_libre()
-        if vehiculo:
-            mecanico = taller.get_mecanico_libre()
-            if mecanico:
-                if(vehiculo.get_usa_elevador()):
-                    elevador = taller.get_elevador_libre()
-                    if elevador:
+        while True: # inicio tantas reparaciones como sea posible con los recursos disponibles
+            vehiculo = taller.get_vehiculo_libre()
+            if vehiculo:
+                mecanico = taller.get_mecanico_libre()
+                if mecanico:
+                    if(vehiculo.get_usa_elevador()):
+                        elevador = taller.get_elevador_libre()
+                        if elevador:
+                            vehiculo.set_tiempo_espera(reloj.get_valor() - vehiculo.get_tiempo_llegada())
+                            reparacion = taller.iniciar_reparacion(vehiculo, mecanico, elevador)
+                            evento_nuevo = Evento(FINALIZA_REPARACION, reloj.get_valor() + vehiculo.get_tiempo_reparacion(), reparacion, vehiculo) 
+                            agregar_evento(cola_eventos, evento_nuevo)
+                        else:# si no hay elevador
+                            break
+                    else:
                         vehiculo.set_tiempo_espera(reloj.get_valor() - vehiculo.get_tiempo_llegada())
-                        reparacion = taller.iniciar_reparacion(vehiculo, mecanico, elevador)
-                        evento_nuevo = Evento(FINALIZA_REPARACION, reloj.get_valor() + vehiculo.get_tiempo_reparacion(), reparacion, vehiculo) 
+                        reparacion = taller.iniciar_reparacion(vehiculo, mecanico)
+
+                        t_reparacion = vehiculo.get_tiempo_total() - vehiculo.get_tiempo_espera()
+                        if t_reparacion > 0:
+                            vehiculo.set_tiempo_reparacion(t_reparacion)
+                        else: # es para envitar error en caso de que su reparacion inicie despues de finalizado su tiempo de estadia
+                            vehiculo.set_tiempo_reparacion(1)
+
+                        tiempo_finalizacion_reparacion = reloj.get_valor() + vehiculo.get_tiempo_reparacion()
+                        evento_nuevo = Evento(FINALIZA_REPARACION, tiempo_finalizacion_reparacion, reparacion, vehiculo) 
+
                         agregar_evento(cola_eventos, evento_nuevo)
-                else:
-                    vehiculo.set_tiempo_espera(reloj.get_valor() - vehiculo.get_tiempo_llegada())
-                    reparacion = taller.iniciar_reparacion(vehiculo, mecanico)
-
-                    t_reparacion = vehiculo.get_tiempo_total() - vehiculo.get_tiempo_espera()
-                    if t_reparacion > 0:
-                        vehiculo.set_tiempo_reparacion(t_reparacion)
-                    else: # es para envitar error en caso de que su reparacion inicie despues de finalizado su tiempo de estadia
-                        vehiculo.set_tiempo_reparacion(1)
-
-                    tiempo_finalizacion_reparacion = reloj.get_valor() + vehiculo.get_tiempo_reparacion()
-                    evento_nuevo = Evento(FINALIZA_REPARACION, tiempo_finalizacion_reparacion, reparacion, vehiculo) 
-
-                    agregar_evento(cola_eventos, evento_nuevo)
-
+                else:# si no hay mecanico
+                    break
+            else:# si no hay vehiculo
+                break
     else:
         taller.egresar_vehiculo(un_evento.get_vehiculo())
 
