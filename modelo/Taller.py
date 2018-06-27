@@ -29,7 +29,6 @@ class Taller:
         self.autos_reparados_sin_elevador = 0
         self.autos_rechazados = 0
 
-
     def get_vehiculo_libre(self):
         vehiculos_galpon = []
         vehiculos_galpon = self.galpon.get_proximos_vehiculos()
@@ -44,19 +43,18 @@ class Taller:
     def get_elevador_libre(self):
         for un_elevador in self.elevadores:
             if(un_elevador.get_disponible()):
-                un_elevador.set_disponible(False)
                 return un_elevador
         return None
 
     def get_mecanico_libre(self):
         for un_mecanico in self.mecanicos:
             if(un_mecanico.get_disponible()):
-                un_mecanico.set_disponible(False)
                 return un_mecanico
         return None
 
     def ingresar_vehiculo(self, un_vehiculo):
         ingreso_vehiculo = self.galpon.ingreso_vehiculo(un_vehiculo)
+        return ingreso_vehiculo
         
     def egresar_vehiculo(self, un_vehiculo):
         self.galpon.salida_vehiculo(un_vehiculo)
@@ -70,6 +68,7 @@ class Taller:
         return una_reparacion
 
     def finalizar_reparacion(self, una_reparacion):
+        una_reparacion.vehiculo.set_reparado(True)
         self.reparaciones.remove(una_reparacion)
         una_reparacion.get_mecanico().set_disponible(True) #Pasar mecanico a disponible
         if (una_reparacion.get_elevador()):

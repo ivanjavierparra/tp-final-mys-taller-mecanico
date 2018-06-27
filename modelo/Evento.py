@@ -10,6 +10,9 @@ class Evento:
         
     def __lt__(self, otro):
         return self.tiempo < otro.tiempo
+
+    def __str__(self):
+        return "Tipo:{0}-Tiempo{1}:-Reparacion:{2}-Vehiculo:{3}".format(self.tipo,self.tiempo,self.reparacion,self.vehiculo)
     
     def get_tipo(self):
         return self.tipo

@@ -4,7 +4,7 @@ class Elevador:
     """
     def __init__(self):
         self.disponible = True
-        self.tiempo_uso = 0
+        self.tiempos_uso_dia = []
         
     def get_disponible(self):
         return self.disponible
