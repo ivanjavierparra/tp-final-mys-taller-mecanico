@@ -53,6 +53,7 @@ class MenuPrincipal(object):
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Menú Principal - Simulación de un Taller Mecánico"))
+        Dialog.setWindowIcon(QtGui.QIcon('car.png'))
         self.comenzar_button.setText(_translate("Dialog", "Comenzar la Simulación"))
         self.cantidad_mecanicos_label.setText(_translate("Dialog", "Cantidad de Mecánicos"))
         self.dias_simulacion_label.setText(_translate("Dialog", "Dias de Simulación"))
