@@ -150,7 +150,6 @@ def procesar_evento(un_evento, taller, reloj, cola_eventos): # tambien puede lla
         if (reparacion.get_elevador()):
             taller.finalizar_reparacion(reparacion)
             #Vuelvo al Taller hasta que pase el evento de SALE_VEHICULO
-<<<<<<< HEAD
             vehiculo = reparacion.get_vehiculo()
             t_de_salida = (vehiculo.get_tiempo_llegada() + vehiculo.get_tiempo_total())
             if t_de_salida > reloj.get_valor():
@@ -158,7 +157,6 @@ def procesar_evento(un_evento, taller, reloj, cola_eventos): # tambien puede lla
                 agregar_evento(cola_eventos,evento)
             else:
                 taller.egresar_vehiculo(un_evento.get_vehiculo())
-=======
 
 
             # INICIO DATOS GRAFICO ELEVADOR
@@ -171,7 +169,6 @@ def procesar_evento(un_evento, taller, reloj, cola_eventos): # tambien puede lla
 
             #FIN GRAFICO
 
->>>>>>> graficos
         else:
             taller.finalizar_reparacion(reparacion)
             taller.egresar_vehiculo(reparacion.get_vehiculo())
