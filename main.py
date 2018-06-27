@@ -14,6 +14,7 @@ import bisect
 
 
 #60 mintos por hora * las 10 horas laborales.
+AUTOS_POR_DIA = 15
 MINUTOS_DE_SIMULACION_POR_DIA = 600
 PORCENTAJE_DE_AUTOS_CON_ELEVADOR = 70
 
@@ -32,7 +33,7 @@ def calcular_exponencial(valor_promedio,tiempo_reparacion):
             return 120
         else:
             return aux
-    else:
+    else:#Es tiempo de permanencia
         aux = np.random.exponential(valor_promedio)
         if aux < 300:
             return 300
@@ -58,7 +59,7 @@ def generar_cola_eventos_ordenada(dias_simulacion):
         """
         minutos_diarios_usados = []
         #Caluclo la cantidad de autos para este día
-        cantidad_de_autos = int(np.random.poisson(15))
+        cantidad_de_autos = int(np.random.poisson(AUTOS_POR_DIA))
         #De esa cantidad utilizando el PORCENTAJE (70%) me quedo con la cantidad de autos que no requieren elevador
         cant_autos_usan_elevador = int((cantidad_de_autos * PORCENTAJE_DE_AUTOS_CON_ELEVADOR)/100)
         #Itereo por la cantidad de autos que NO requieren elevador
@@ -94,6 +95,10 @@ def generar_cola_eventos_ordenada(dias_simulacion):
             #Genereo el evento
             evento = Evento(LLEGA_VEHICULO,minuto_de_ocurrencia_evento,None,vehiculo)
             lista_eventos.append(evento)
+    lista_eventos = sorted(lista_eventos, key=lambda evento: evento.tiempo)
+    print("Tamaño de la lista de Eventos Iniciales:{}".format(len(lista_eventos)))
+    for evento in lista_eventos:
+        print(evento)
     return lista_eventos
 
 def get_evento_proximo(cola_eventos):
@@ -107,58 +112,74 @@ def get_evento_proximo(cola_eventos):
 def agregar_evento(cola_eventos, nuevo_evento):
     bisect.insort(cola_eventos, nuevo_evento)
 
-def ejecutar_evento(un_evento, taller, reloj, cola_eventos): # tambien puede llamarse ocurre_evento. No me convence ninguno de los 2 como nombre. piensen otro
+def procesar_evento(un_evento, taller, reloj, cola_eventos): # tambien puede llamarse ocurre_evento. No me convence ninguno de los 2 como nombre. piensen otro
     if (un_evento.get_tipo() == LLEGA_VEHICULO):
         if(not taller.get_galpon().esta_lleno()):
             vehiculo = un_evento.get_vehiculo()
+            vehiculo.set_tiempo_llegada(reloj.get_valor())
             taller.ingresar_vehiculo(vehiculo)
-            
             mecanico = taller.get_mecanico_libre()
-            if(mecanico):
-                necesita_elevador = vehiculo.get_usa_elevador()
-
-                if(necesita_elevador):
+            if mecanico:
+                if(vehiculo.get_usa_elevador()):
                     elevador = taller.get_elevador_libre()
-                    if(elevador):
-                        vehiculo.set_tiempo_espera( (reloj.get_valor() - un_evento.get_tiempo()))
+                    if elevador:
+                        vehiculo.set_tiempo_espera(reloj.get_valor() - un_evento.get_tiempo())
                         reparacion = taller.iniciar_reparacion(un_evento.get_vehiculo(), mecanico, elevador)
-                        evento_nuevo = Evento(FINALIZA_REPARACION, (reloj.get_valor() + vehiculo.get_tiempo_reparacion()), reparacion, vehiculo) 
+                        evento_nuevo = Evento(FINALIZA_REPARACION, reloj.get_valor() + vehiculo.get_tiempo_reparacion(), reparacion, vehiculo) 
                         agregar_evento(cola_eventos, evento_nuevo)
-                        #seteamos tiempo de uso del elevador "x" con el tiempo_reparacion
+                        #Agrego el evento de Salida del auto cuando termine su tiempo de estadia
+                        evento_nuevo = Evento(SALE_VEHICULO, reloj.get_valor() + vehiculo.get_tiempo_total(),un_vehiculo=vehiculo) 
+                        agregar_evento(cola_eventos, evento_nuevo)
                 else:
-                    reparacion = taller.iniciar_reparacion(un_evento.get_vehiculo(), mecanico)
-                    vehiculo.set_tiempo_espera( (reloj.get_valor() - un_evento.get_tiempo()))
+                    vehiculo.set_tiempo_espera(reloj.get_valor() - un_evento.get_tiempo())
+                    reparacion = taller.iniciar_reparacion(vehiculo, mecanico)
 
                     t_reparacion = vehiculo.get_tiempo_total() - vehiculo.get_tiempo_espera()
                     vehiculo.set_tiempo_reparacion(t_reparacion)
 
-                    tiempo_ocurrencia = reloj.get_valor() + vehiculo.get_tiempo_reparacion()
-                    evento_nuevo = Evento(FINALIZA_REPARACION, tiempo_ocurrencia, reparacion, vehiculo) 
+                    tiempo_finalizacion_reparacion = reloj.get_valor() + vehiculo.get_tiempo_reparacion()
+                    evento_nuevo = Evento(FINALIZA_REPARACION, tiempo_finalizacion_reparacion, reparacion, vehiculo) 
 
                     agregar_evento(cola_eventos, evento_nuevo)
-
         else:
             taller.aumentar_autos_rechazados()
 
         
     elif(un_evento.get_tipo() == FINALIZA_REPARACION):
         reparacion = un_evento.get_reparacion()
-        galpon = taller.get_galpon()
         if (reparacion.get_elevador()):
             taller.finalizar_reparacion(reparacion)
+            #Vuelvo al Taller hasta que pase el evento de SALE_VEHICULO
         else:
             taller.finalizar_reparacion(reparacion)
             taller.egresar_vehiculo(reparacion.get_vehiculo())
-            #Creo nuevo evento de reparacion
-            vehiculo = taller.get_vehiculo_libre()
-            if vehiculo:
-                mecanico = taller.get_mecanico_libre()
-                reparacion = Reparacion(vehiculo, mecanico)
-                if (vehiculo.get_usa_elevador()):
-                    reparacion.elevador = taller.get_elevador_libre()
-                tiempo = calcular_exponencial(60, True)
-                evento = Evento(FINALIZA_REPARACION, (reloj.get_valor() + tiempo), reparacion)
-        reparaciones_realizadas =+ 1
+        #Tomo otro auto y creo nuevo evento de reparacion
+        vehiculo = taller.get_vehiculo_libre()
+        if vehiculo:
+            mecanico = taller.get_mecanico_libre()
+            if mecanico:
+                if vehiculo.get_usa_elevador():
+                    elevador = taller.get_elevador_libre()
+                    if elevador:
+                        reparacion = taller.iniciar_reparacion(vehiculo,mecanico,elevador)
+                        #Calculo Tiempo Reparacion
+                        tiempo = calcular_exponencial(60, True)
+                        evento = Evento(FINALIZA_REPARACION, reloj.get_valor() + tiempo, reparacion,vehiculo)
+                        agregar_evento(cola_eventos,evento)
+                        if vehiculo.get_tiempo_llegada() + vehiculo.get_tiempo_total() > reloj.get_valor() + vehiculo.get_tiempo_reparacion():
+                            evento = Evento(SALE_VEHICULO,vehiculo.get_tiempo_llegada()+vehiculo.get_tiempo_total(),vehiculo)
+                            agregar_evento(cola_eventos,evento)
+                        else:
+                            evento = Evento(SALE_VEHICULO,reloj.get_valor() + tiempo+1,vehiculo)
+                            agregar_evento(cola_eventos,evento)
+                else:
+                    reparacion = taller.iniciar_reparacion(vehiculo,mecanico) 
+                    if reloj.get_valor() < vehiculo.get_tiempo_llegada() + vehiculo.get_tiempo_total():
+                        evento = Evento(FINALIZA_REPARACION, (vehiculo.get_tiempo_llegada() + vehiculo.get_tiempo_total()), reparacion,vehiculo)
+                        agregar_evento(cola_eventos,evento)
+                    else:
+                        evento = Evento(FINALIZA_REPARACION, reloj.get_valor(), reparacion,vehiculo)
+                        agregar_evento(cola_eventos,evento)
     else:
         taller.egresar_vehiculo(un_evento.get_vehiculo())
 
@@ -182,10 +203,9 @@ def actualizar_pantalla(pantalla,dias_transcurridos,taller,finalizo_simulacion):
         pantalla.ver_informe_button.setEnabled(True)
 
 def calcular_dias_transcurridos(reloj):
-    return int(reloj.get_valor()/ MINUTOS_DE_SIMULACION_POR_DIA)
+    return int(reloj.get_valor()/ MINUTOS_DE_SIMULACION_POR_DIA)+1
 
 def main(pantalla,cantidad_elevadores,cantidad_mecanicos,dias_simulacion):
-    print("Dias de simulacion{}".format(dias_simulacion))
     dias_transcurridos = 0
     #Se genera el reloj que guiará toda la simulación.
     reloj = Reloj()
@@ -205,7 +225,7 @@ def main(pantalla,cantidad_elevadores,cantidad_mecanicos,dias_simulacion):
             reloj.adelantar(evento.get_tiempo())
             #Procesamos el evento
             if (reloj.get_valor() < dias_simulacion * MINUTOS_DE_SIMULACION_POR_DIA):
-                respuesta = ejecutar_evento(evento, taller,reloj,cola_eventos)
+                respuesta = procesar_evento(evento, taller,reloj,cola_eventos)
                 #Dada la respuesta definimos si hay que agregar
                 #otro evento en la cola de eventos
                 if respuesta:
@@ -215,11 +235,10 @@ def main(pantalla,cantidad_elevadores,cantidad_mecanicos,dias_simulacion):
                 
             else:
                 print("No Hay mas tiempo, tiempo reloj: ", reloj.get_valor())
-                print(dias_transcurridos)
+                print(evento)
                 break
         else:
             print("No Hay mas eventos, tiempo reloj: ", reloj.get_valor())
-            print(dias_transcurridos)
             break
         #QtTest.QTest.qWait(1000)
     #Aca hariamos calculos para armar el grafico 

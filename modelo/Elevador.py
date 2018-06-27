@@ -4,12 +4,17 @@ class Elevador:
     """
     def __init__(self,dias_elevador):
         self.disponible = True
+<<<<<<< HEAD
         self.tiempo_uso = 0
         self.dias_elevador = dias_elevador
         self.arreglo_horas_dia = [0] * self.dias_elevador
         #print("Estoy en Elevador:  " + str(self.dias_elevador))
         #print("Longitud de arreglo: " + str(len(self.arreglo_horas_dia)))
 
+=======
+        self.tiempos_uso_dia = []
+        
+>>>>>>> 4fb7566b88cd364a4b08b1456a30e82c6daffb1e
     def get_disponible(self):
         return self.disponible
     

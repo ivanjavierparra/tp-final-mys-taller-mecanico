@@ -4,6 +4,8 @@ class Mecanico:
     """
     def __init__(self):
         self.disponible = True
+        self.tiempo_uso_dia = []
+
 
     def get_disponible(self):
     	return self.disponible
