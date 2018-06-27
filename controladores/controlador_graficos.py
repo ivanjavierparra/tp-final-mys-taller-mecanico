@@ -19,9 +19,10 @@ class ControladorGraficos(QDialog):
         self.dias_simulacion = dias
         self.elevadores = elevadores
         self.mecanicos = mecanicos
+        self.prueba()
         self.mostrarGraficoUno()
         self.mostrarGraficoDos()
-        self.mostrarGraficoTres()
+        #self.mostrarGraficoTres()
 
     def comenzar_simulacion(self):
         try:
@@ -33,8 +34,12 @@ class ControladorGraficos(QDialog):
             self.menu_principal.mensaje_bienvenida_label.setText("Por Favor Complete todos los campos con valores numericos.")
     
     
+    def prueba(self):
+        elevador_1 = self.elevadores[0]
+        for i in range(0,30):
+           print("Elevador_1: " + str(elevador_1.get_valor_arreglo(i)))
     
-    
+
 
 
     #en main esta la llamada a controladorSimulacion, que recibe los mecanicos y elevadores
@@ -45,22 +50,30 @@ class ControladorGraficos(QDialog):
         print("Elevadores: " + str(self.elevadores)) 
         print("Mecanicos: " + str(self.mecanicos))
         print("Dias de Simulacion: " + str(self.dias_simulacion))
-        
+        print("tamaño: " + str(len(self.elevadores)))
         #Estas son las listas de cada elevador. Cada lugar del arreglo representa un dia.
-        elevador_1 = [600,400,500]
-        elevador_2 = [300,340,250]
-        elevador_3 = [210,234,345]
+        
 
-        DIA = 600 #minutos maximos que puede usarse un elevador
+        
 
-        elevadores = np.arange(3)
+        elevadores = np.arange(len(self.elevadores))
+        print(str(self.elevadores[0].get_arreglo_horas_dia()))
+        print(str(self.elevadores[1].get_arreglo_horas_dia()))
+        print(str(self.elevadores[2].get_arreglo_horas_dia()))##### el problema es que tengo que agarra el arreglo!!!!PELOTUDO!!!
+        
+        #valor_1 = float("{0:.2f}".format(((np.mean(elevador_2)*100)/DIA)))
+        #valor_2 = float("{0:.2f}".format(((np.mean(elevador_2)*100)/DIA)))
+        #valor_3 = float("{0:.2f}".format(((np.mean(elevador_3)*100)/DIA)))
+        
+        dataset = [0] * len(self.elevadores)
+        for i in range(0,len(self.elevadores)):
+            elevador_arreglo = self.elevadores[i].get_arreglo_horas_dia()
+            dataset[i]  = float("{0:.2f}".format(((np.mean(elevador_arreglo)*100)/self.dias_simulacion)))
+            
 
-        valor_1 = float("{0:.2f}".format(((np.mean(elevador_2)*100)/DIA)))
-        valor_2 = float("{0:.2f}".format(((np.mean(elevador_2)*100)/DIA)))
-        valor_3 = float("{0:.2f}".format(((np.mean(elevador_3)*100)/DIA)))
 
         #arreglo con los promedios de todos los dias.
-        dataset = [valor_1,valor_2,valor_3]
+        #dataset = [valor_1,valor_2,valor_3]
 
 
         # esto es para poner en el eje y porcentajes. 
@@ -76,7 +89,13 @@ class ControladorGraficos(QDialog):
 
         # seteo los datos    
         plt.bar(elevadores,dataset, color='#FFC222',width=0.30, alpha=0.5)
-        plt.xticks(elevadores,('Elevador 1','Elevador 2','Elevador 3'))
+
+        labels = []
+        for i in range(0,len(self.elevadores)):
+            j = i + 1
+            labels.append("Elevador " + str(j))
+        
+        plt.xticks(elevadores,labels)
 
         # titulos
         plt.title("Porcentaje de Uso de los Elevadores")
@@ -97,15 +116,23 @@ class ControladorGraficos(QDialog):
         ############ GRÁFICO 2 - Opción 2 ############
 
         #Estos son los valores por dia de cada elevador
-        elevador_1 = [600,400,500,300,300,400,500,543,223,123,231,233,344,444,233]
-        elevador_2 = [300,340,250,310,333,555,444,333,111,222,333,444,555,444,333]
-        elevador_3 = [210,234,345,354,354,354,333,555,444,222,111,222,111,222,111]
+        #elevador_1 = [600,400,500,300,300,400,500,543,223,123,231,233,344,444,233]
+        #elevador_2 = [300,340,250,310,333,555,444,333,111,222,333,444,555,444,333]
+        #elevador_3 = [210,234,345,354,354,354,333,555,444,222,111,222,111,222,111]
+        #elevadores = []
+
+        DIAS = self.dias_simulacion
+        MINUTOS_DIAS = 600
         elevadores = []
 
-        DIAS = 15
-        MINUTOS_DIAS = 600
         for i in range(DIAS):
-            valor_promedio = ((((elevador_1[i] + elevador_2[i] + elevador_3[i])/3)*100)/MINUTOS_DIAS)
+            valor_promedio = 0
+            for j in range(0,len(self.elevadores)):
+                elevador_arreglo = self.elevadores[j].get_arreglo_horas_dia()#elijo elevador
+                valor_promedio += elevador_arreglo[i]#en el dia
+
+
+            valor_promedio = ((((valor_promedio)/len(self.elevadores))*100)/MINUTOS_DIAS)
             valor_promedio = float("{0:.2f}".format(valor_promedio))
             elevadores.append(valor_promedio)
 

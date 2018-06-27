@@ -150,6 +150,18 @@ def procesar_evento(un_evento, taller, reloj, cola_eventos): # tambien puede lla
         if (reparacion.get_elevador()):
             taller.finalizar_reparacion(reparacion)
             #Vuelvo al Taller hasta que pase el evento de SALE_VEHICULO
+
+
+            # INICIO DATOS GRAFICO ELEVADOR
+            dias_horas = calcular_dias_transcurridos(reloj) - 1
+            vehiculo = reparacion.get_vehiculo()
+            horas_reparacion = vehiculo.get_tiempo_reparacion()
+            elevador = reparacion.get_elevador()
+            
+            elevador.set_valor_arreglo(dias_horas,horas_reparacion)
+
+            #FIN GRAFICO
+
         else:
             taller.finalizar_reparacion(reparacion)
             taller.egresar_vehiculo(reparacion.get_vehiculo())
@@ -205,7 +217,7 @@ def actualizar_pantalla(pantalla,dias_transcurridos,taller,finalizo_simulacion):
 def calcular_dias_transcurridos(reloj):
     return int(reloj.get_valor()/ MINUTOS_DE_SIMULACION_POR_DIA)+1
 
-def main(pantalla,cantidad_elevadores,cantidad_mecanicos,dias_simulacion):
+def main(controlador_simulacion, pantalla,cantidad_elevadores,cantidad_mecanicos,dias_simulacion):
     dias_transcurridos = 0
     #Se genera el reloj que guiará toda la simulación.
     reloj = Reloj()
@@ -242,8 +254,16 @@ def main(pantalla,cantidad_elevadores,cantidad_mecanicos,dias_simulacion):
             break
         #QtTest.QTest.qWait(1000)
     #Aca hariamos calculos para armar el grafico 
+    controlador_simulacion.set_elevadores(taller.get_elevadores())
+    #controlador_simulacion.mostrar_graficos()
+    #controlador_simulacion.mostrarTodosLosGraficos()
     print("Termine la simulación")
     actualizar_pantalla(pantalla,dias_transcurridos, taller,True)
+    
+    
+    #elevador_1 = elevadores[0]
+    #for i in range(0,30):
+     #   print("Elevador_1: " + str(elevador_1.get_valor_arreglo(i)))
 
 def mostrar_ventana():
     app = QApplication(sys.argv)
@@ -251,7 +271,7 @@ def mostrar_ventana():
     ventana_inicial.exec_()
     ventana_simulacion = ControladorSimulacion(ventana_inicial.cantidad_elevadores,ventana_inicial.cantidad_mecanicos,ventana_inicial.dias_simulacion,[1,2,3],[4,5,6])
     ventana_simulacion.show()
-    main(ventana_simulacion.pantalla_simulacion,ventana_simulacion.cantidad_elevadores,ventana_simulacion.cantidad_mecanicos,ventana_simulacion.dias_simulacion)
+    main(ventana_simulacion, ventana_simulacion.pantalla_simulacion,ventana_simulacion.cantidad_elevadores,ventana_simulacion.cantidad_mecanicos,ventana_simulacion.dias_simulacion)
     sys.exit(app.exec_())
 
 if __name__ == '__main__':

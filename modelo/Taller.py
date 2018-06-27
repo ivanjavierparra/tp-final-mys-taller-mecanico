@@ -104,3 +104,6 @@ class Taller:
 
     def aumentar_autos_rechazados(self):
         self.autos_rechazados += 1
+
+    def get_elevadores(self):
+        return self.elevadores
