@@ -219,7 +219,9 @@ def actualizar_pantalla(pantalla,dias_transcurridos,taller,finalizo_simulacion):
     pantalla.cant_elevadores_utilizados_val_label.setText(str(taller.get_cant_elevadores_disponibles()))
     pantalla.cant_elevadores_libres_val_label.setText(str(taller.get_cant_elevadores_ocupados()))
     if finalizo_simulacion:
-        pantalla.ver_informe_button.setEnabled(True)
+        pantalla.ver_grafico_uno_button.setEnabled(True)
+        pantalla.ver_grafico_dos_button.setEnabled(True)
+        pantalla.ver_grafico_tres_button.setEnabled(True)
 
 def calcular_dias_transcurridos(reloj):
     return int(reloj.get_valor()/ MINUTOS_DE_SIMULACION_POR_DIA)+1
