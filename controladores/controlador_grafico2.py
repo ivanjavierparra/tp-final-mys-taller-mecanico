@@ -83,7 +83,7 @@ class ControladorGrafico2(QDialog):
             plt.text(a, b, str(a) + " %",verticalalignment='center',horizontalalignment='left')
 
 
-        plt.savefig('fig2.png')
-        pixmap = QPixmap("fig2.png")
+        plt.savefig('grafico2.png')
+        pixmap = QPixmap("grafico2.png")
         pixmap = pixmap.scaled(1000, 500)
         self.pantalla_graficos.grafico_label.setPixmap(pixmap)

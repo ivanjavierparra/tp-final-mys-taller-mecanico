@@ -65,8 +65,8 @@ class ControladorGrafico3(QDialog):
         plt.setp(plt.gca().get_xticklabels(), horizontalalignment='center')
         #plt.savefig('fig1.png')
 
-        plt.savefig('fig3.png')
-        pixmap = QPixmap("fig3.png")
+        plt.savefig('grafico3.png')
+        pixmap = QPixmap("grafico3.png")
         pixmap = pixmap.scaled(1000, 500)
         self.pantalla_graficos.grafico_label.setPixmap(pixmap)
         """
