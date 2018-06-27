@@ -68,7 +68,9 @@ class ControladorGraficos(QDialog):
         dataset = [0] * len(self.elevadores)
         for i in range(0,len(self.elevadores)):
             elevador_arreglo = self.elevadores[i].get_arreglo_horas_dia()
-            dataset[i]  = float("{0:.2f}".format(((np.mean(elevador_arreglo)*100)/self.dias_simulacion)))
+            dataset[i]  = float("{0:.2f}".format(((np.mean(elevador_arreglo)*100)/(self.dias_simulacion*600))))
+            
+            print("El valor es: " + str(dataset[i]))
             
 
 
