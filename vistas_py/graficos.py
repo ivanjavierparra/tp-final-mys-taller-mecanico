@@ -57,4 +57,4 @@ class UiGraficos(object):
         self.grafico_tres_label.setText(_translate("Graficos", "TextLabel"))
         self.contenedor_grafico_cuatro.setTitle(_translate("Graficos", "GroupBox4"))
         self.grafico_cuatro_label.setText(_translate("Graficos", "TextLabel"))
-
+        
