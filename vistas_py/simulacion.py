@@ -171,7 +171,7 @@ class Simulacion(object):
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
-        Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
+        Dialog.setWindowTitle(_translate("Dialog", "Simulación de un Taller Mecánico"))
         self.groupBox.setTitle(_translate("Dialog", "Estado del Sistema"))
         self.cant_elevadores_utilizados_label.setText(_translate("Dialog", "Cantidad de Elevadores utilizados"))
         self.cant_mecanicos_utilizados_val_label.setText(_translate("Dialog", "3"))

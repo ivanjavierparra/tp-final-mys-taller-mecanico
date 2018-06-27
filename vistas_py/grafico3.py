@@ -22,6 +22,6 @@ class UiGrafico3(object):
 
     def retranslateUi(self, Grafico3):
         _translate = QtCore.QCoreApplication.translate
-        Grafico3.setWindowTitle(_translate("Grafico3", "Grafico"))
+        Grafico3.setWindowTitle(_translate("Grafico3", "Graficos - Simulación de un Taller Mecánico"))
         self.grafico_label.setText(_translate("Grafico3", "grafico"))
 
