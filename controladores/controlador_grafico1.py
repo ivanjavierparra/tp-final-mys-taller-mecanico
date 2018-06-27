@@ -87,4 +87,4 @@ class ControladorGrafico1(QDialog):
 
         plt.savefig('fig1.png')
 
-        self.pantalla_graficos.grafico_uno_label.setPixmap(QPixmap("fig1.png"))
+        self.pantalla_graficos.grafico_label.setPixmap(QPixmap("fig1.png"))
