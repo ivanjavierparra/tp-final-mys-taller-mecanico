@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'welcomedialog.ui'
+# Form implementation generated from reading ui file 'menu_principal.ui'
 #
 # Created by: PyQt5 UI code generator 5.9.2
 #
@@ -8,7 +8,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-class welcomeDialog(object):
+class MenuPrincipal(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
         Dialog.resize(548, 347)

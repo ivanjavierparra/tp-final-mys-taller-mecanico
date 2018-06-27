@@ -10,4 +10,7 @@ class Reloj:
     
     def set_valor(self, nuevo_valor):
         self.valor = nuevo_valor
+
+    def adelantar(self, nuevo_valor):
+        self.valor += nuevo_valor
         
