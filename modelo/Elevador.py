@@ -28,5 +28,7 @@ class Elevador:
     def set_valor_arreglo(self,dia,valor):
         self.arreglo_horas_dia[dia] += valor
     
+    def get_valor_arreglo(self,dia):
+        return self.arreglo_horas_dia[dia]
     #NOTA 1: elevador tendría que tener lista[dias] donde guarda por c/dia el tiempo de uso.
     #NOTA 2: funcion getDia(valor_del_reloj)---> dia = (valor_del_reloj/600) + 1   ---> hay que truncar... 

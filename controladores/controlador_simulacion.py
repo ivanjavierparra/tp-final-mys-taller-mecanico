@@ -27,9 +27,9 @@ class ControladorSimulacion(QMainWindow):
     def mostrar_graficos(self):
         print("===============DASdasdadsadldksadlksm==========")
         print("Dias de Simulacion: " + str(self.dias_simulacion))
-        ventana = ControladorGraficos(self.elevadores, self.mecanicos, self.dias_simulacion)
-        ventana.exec_()
-
+        controlador_graficos = ControladorGraficos(self.elevadores, self.mecanicos, self.dias_simulacion)
+        controlador_graficos.exec_()
+    
     def set_elevadores(self,arreglo):
         self.elevadores = arreglo
     
