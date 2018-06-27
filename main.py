@@ -172,6 +172,17 @@ def procesar_evento(un_evento, taller, reloj, cola_eventos): # tambien puede lla
         else:
             taller.finalizar_reparacion(reparacion)
             taller.egresar_vehiculo(reparacion.get_vehiculo())
+        
+        # INICIO DATOS GRAFICO MECANICO
+        dias_horas = calcular_dias_transcurridos(reloj) - 1
+        vehiculo = reparacion.get_vehiculo()
+        horas_reparacion = vehiculo.get_tiempo_reparacion()
+        mecanico = reparacion.get_mecanico()
+        
+        mecanico.set_valor_arreglo(dias_horas,horas_reparacion)
+
+        #FIN GRAFICO
+        
         #Tomo otro auto y creo nuevo evento de reparacion
         vehiculo = taller.get_vehiculo_libre()
         if vehiculo:
@@ -262,6 +273,7 @@ def main(controlador_simulacion, pantalla,cantidad_elevadores,cantidad_mecanicos
         #QtTest.QTest.qWait(1000)
     #Aca hariamos calculos para armar el grafico 
     controlador_simulacion.set_elevadores(taller.get_elevadores())
+    controlador_simulacion.set_mecanicos(taller.get_mecanicos())
     #controlador_simulacion.mostrar_graficos()
     #controlador_simulacion.mostrarTodosLosGraficos()
     print("Termine la simulación")

@@ -22,7 +22,7 @@ class ControladorGraficos(QDialog):
         self.prueba()
         self.mostrarGraficoUno()
         self.mostrarGraficoDos()
-        #self.mostrarGraficoTres()
+        self.mostrarGraficoTres()
 
     def comenzar_simulacion(self):
         try:
@@ -185,6 +185,11 @@ class ControladorGraficos(QDialog):
         ocupado = np.array([38, 17, 26, 19, 15])
         desocupado = np.array([62, 83, 74, 81, 85])
 
+        for mecanico in self.mecanicos:
+            print(str(mecanico.get_tiempo_uso_dia()))
+
+        
+
         #calculo porcentajes
         total = ocupado + desocupado
         proportion_ocupado = np.true_divide(ocupado, total) * 100
@@ -218,3 +223,5 @@ class ControladorGraficos(QDialog):
         plt.savefig('fig3.png')
 
         self.pantalla_graficos.grafico_tres_label.setPixmap(QPixmap("fig3.png"))
+        
+        
