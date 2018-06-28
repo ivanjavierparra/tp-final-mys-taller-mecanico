@@ -148,6 +148,35 @@ class ControladorSimulacion(QMainWindow):
     
     def mostrar_grafico_tres(self):
         print("Falta Grafico")
+        lista = []
+        
+        for j in range(0,len(self.elevadores)):
+            elevador_arreglo = self.elevadores[j].get_arreglo_horas_dia()
+            lista.append(elevador_arreglo)
+        
+        promedio_uso_elevadores = np.mean(lista)
+        print("Promedio: " + str(promedio_uso_elevadores))
+        #calculo porcentajes
+        total = 600 # horas por dia
+        proportion_ocupado = (promedio_uso_elevadores * 100)/600
+        proportion_desocupado = 100 - proportion_ocupado
+        
+        #Por cada mecanico creo su barra
+        plt.bar('Elevadores', proportion_desocupado, width=0.5, label='Desocupado', color='gold', bottom=proportion_ocupado)
+        plt.bar('Elevadores', proportion_ocupado, width=0.5, label='Ocupado', color='#CD853F')
+
+        plt.legend(loc="best")
+
+        #Seteo atributos del grafico
+        plt.ylabel("Porcentaje de Ocupación")
+        plt.xlabel("Mecánicos")
+
+        plt.title("Porcentaje de Uso de los "+ str(len(self.elevadores)) + " Elevadores en promedio por día durante " + str(self.dias_simulacion) + " días")
+        plt.ylim=1.0
+
+        plt.setp(plt.gca().get_xticklabels(), horizontalalignment='center')
+
+        plt.show()
 
     def set_elevadores(self,arreglo):
         self.elevadores = arreglo
