@@ -82,7 +82,7 @@ class ControladorSimulacion(QMainWindow):
         plt.xticks(elevadores,labels)
 
         # titulos
-        plt.title("Porcentaje de Uso de los Elevadores")
+        plt.title("Porcentaje de Uso de c/Elevadores en " + str(self.dias_simulacion) + " días")
         plt.xlabel("Elevadores")
         plt.ylabel("Porcentaje de Uso")
         plt.show()
@@ -138,7 +138,7 @@ class ControladorSimulacion(QMainWindow):
         plt.barh(y_pos, performance, align='center', alpha=0.5)
         plt.yticks(y_pos, objects)
         plt.xlabel('Porcentaje de Uso')
-        plt.title('Porcentaje de Uso de Elevadores')
+        plt.title('Porcentaje de Uso de los '+  str(len(self.elevadores))   + ' Elevadores por día (En ' + str(self.dias_simulacion) + ' días)')
  
     
         # esto le pone a cada barra el valor que posee
