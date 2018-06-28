@@ -148,11 +148,14 @@ class ControladorSimulacion(QMainWindow):
     
     def mostrar_grafico_tres(self):
         print("Falta Grafico")
+        plt.clf()
         lista = []
         
         for j in range(0,len(self.elevadores)):
             elevador_arreglo = self.elevadores[j].get_arreglo_horas_dia()
-            lista.append(elevador_arreglo)
+            for i in range(0,len(elevador_arreglo)):
+                if(elevador_arreglo[i]!=0):
+                    lista.append(elevador_arreglo[i])
         
         promedio_uso_elevadores = np.mean(lista)
         print("Promedio: " + str(promedio_uso_elevadores))
