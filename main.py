@@ -25,22 +25,7 @@ SALE_VEHICULO = 3   #cuando un vehiculo sale del taller
 
 
 def calcular_exponencial(valor_promedio,tiempo_reparacion):
-    if tiempo_reparacion: 
-        aux = np.random.exponential(valor_promedio)
-        if aux < 30:
-            return 30
-        elif aux > 120:
-            return 120
-        else:
-            return aux
-    else:#Es tiempo de permanencia
-        aux = np.random.exponential(valor_promedio)
-        if aux < 300:
-            return 300
-        elif aux > 900:
-            return 900
-        else:
-            return aux
+    return np.random.exponential(valor_promedio)
 
 def generar_cola_eventos_ordenada(dias_simulacion):
     lista_eventos = []
