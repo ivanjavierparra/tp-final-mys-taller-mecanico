@@ -169,7 +169,7 @@ class ControladorSimulacion(QMainWindow):
 
         #Seteo atributos del grafico
         plt.ylabel("Porcentaje de Ocupación")
-        plt.xlabel("Mecánicos")
+        plt.xlabel("Elevadores")
 
         plt.title("Porcentaje de Uso de los "+ str(len(self.elevadores)) + " Elevadores en promedio por día durante " + str(self.dias_simulacion) + " días")
         plt.ylim=1.0
