@@ -24,7 +24,7 @@ class ControladorSimulacion(QMainWindow):
         self.pantalla_simulacion.setupUi(self)
 
         #Confiración previa de atributos de entrada
-        self.pantalla_simulacion.cant_elevadores_val_label.setText(str(self.cantidad_mecanicos))
+        self.pantalla_simulacion.cant_elevadores_val_label.setText(str(self.cantidad_elevadores))
         self.pantalla_simulacion.cant_mecanicos_val_label.setText(str(self.cantidad_mecanicos))
         self.pantalla_simulacion.dias_simulacion_val_label.setText(str(self.dias_simulacion))
         self.pantalla_simulacion.ver_grafico_uno_button.setEnabled(False)
@@ -153,9 +153,7 @@ class ControladorSimulacion(QMainWindow):
         
         for j in range(0,len(self.elevadores)):
             elevador_arreglo = self.elevadores[j].get_arreglo_horas_dia()
-            for i in range(0,len(elevador_arreglo)):
-                if(elevador_arreglo[i]!=0):
-                    lista.append(elevador_arreglo[i])
+            lista.append(elevador_arreglo)
         
         promedio_uso_elevadores = np.mean(lista)
         print("Promedio: " + str(promedio_uso_elevadores))
