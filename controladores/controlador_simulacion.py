@@ -161,9 +161,12 @@ class ControladorSimulacion(QMainWindow):
         proportion_ocupado = (promedio_uso_elevadores * 100)/600
         proportion_desocupado = 100 - proportion_ocupado
         
+        valor1 = float("{0:.2f}".format(proportion_desocupado))
+        valor2 = float("{0:.2f}".format(proportion_ocupado))
+
         #Por cada mecanico creo su barra
-        plt.bar('Elevadores', proportion_desocupado, width=0.5, label='Desocupado', color='gold', bottom=proportion_ocupado)
-        plt.bar('Elevadores', proportion_ocupado, width=0.5, label='Ocupado', color='#CD853F')
+        plt.bar('Elevadores', proportion_desocupado, width=0.5, label='Desocupado: ' + str(valor1) + "%", color='gold', bottom=proportion_ocupado)
+        plt.bar('Elevadores', proportion_ocupado, width=0.5, label='Ocupado: ' + str(valor2) + "%", color='#CD853F')
 
         plt.legend(loc="best")
 
