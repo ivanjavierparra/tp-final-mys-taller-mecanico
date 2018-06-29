@@ -81,9 +81,7 @@ def generar_cola_eventos_ordenada(dias_simulacion):
             evento = Evento(LLEGA_VEHICULO,minuto_de_ocurrencia_evento,None,vehiculo)
             lista_eventos.append(evento)
     lista_eventos = sorted(lista_eventos, key=lambda evento: evento.tiempo)
-    print("Tamaño de la lista de Eventos Iniciales:{}".format(len(lista_eventos)))
-    for evento in lista_eventos:
-        print(evento)
+    
     return lista_eventos
 
 def get_evento_proximo(cola_eventos):
@@ -255,7 +253,6 @@ def main(controlador_simulacion, pantalla,cantidad_elevadores,cantidad_mecanicos
                 
             else:
                 print("No Hay mas tiempo, tiempo reloj: ", reloj.get_valor())
-                print(evento)
                 break
         else:
             print("No Hay mas eventos, tiempo reloj: ", reloj.get_valor())
@@ -269,10 +266,6 @@ def main(controlador_simulacion, pantalla,cantidad_elevadores,cantidad_mecanicos
     print("Termine la simulación")
     actualizar_pantalla(pantalla,dias_transcurridos, taller,True)
     
-    
-    #elevador_1 = elevadores[0]
-    #for i in range(0,30):
-     #   print("Elevador_1: " + str(elevador_1.get_valor_arreglo(i)))
 
 def mostrar_ventana():
     app = QApplication(sys.argv)

@@ -7,8 +7,6 @@ class Elevador:
         self.tiempo_uso = 0
         self.dias_elevador = dias_elevador
         self.arreglo_horas_dia = [0] * self.dias_elevador
-        #print("Estoy en Elevador:  " + str(self.dias_elevador))
-        #print("Longitud de arreglo: " + str(len(self.arreglo_horas_dia)))
 
     def get_disponible(self):
         return self.disponible

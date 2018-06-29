@@ -39,9 +39,6 @@ class ControladorSimulacion(QMainWindow):
         cantidad_mecanicos = 0
 
         elevadores = np.arange(len(self.elevadores))
-        print(str(self.elevadores[0].get_arreglo_horas_dia()))
-        print(str(self.elevadores[1].get_arreglo_horas_dia()))
-        print(str(self.elevadores[2].get_arreglo_horas_dia()))##### el problema es que tengo que agarra el arreglo!!!!PELOTUDO!!!
         
         #valor_1 = float("{0:.2f}".format(((np.mean(elevador_2)*100)/DIA)))
         #valor_2 = float("{0:.2f}".format(((np.mean(elevador_2)*100)/DIA)))
@@ -51,8 +48,7 @@ class ControladorSimulacion(QMainWindow):
         for i in range(0,len(self.elevadores)):
             elevador_arreglo = self.elevadores[i].get_arreglo_horas_dia()
             dataset[i]  = float("{0:.2f}".format(((np.mean(elevador_arreglo)*100)/(600))))
-            print("promedio: " + str(np.mean(elevador_arreglo)))
-            print("El valor es: " + str(dataset[i]))
+            
             
 
 
@@ -147,7 +143,6 @@ class ControladorSimulacion(QMainWindow):
         plt.show()
     
     def mostrar_grafico_tres(self):
-        print("Falta Grafico")
         plt.clf()
         lista = []
         
@@ -156,7 +151,6 @@ class ControladorSimulacion(QMainWindow):
             lista.append(elevador_arreglo)
         
         promedio_uso_elevadores = np.mean(lista)
-        print("Promedio: " + str(promedio_uso_elevadores))
         #calculo porcentajes
         total = 600 # horas por dia
         proportion_ocupado = (promedio_uso_elevadores * 100)/600
